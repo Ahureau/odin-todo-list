@@ -1,10 +1,10 @@
 const taskActions = {
-    getTask() { console.log(`
+    logTask() {console.log(`
     Task: ${this.taskName}
     Project: ${this.taskProject}
     Due: ${this.taskDue}
     Details: ${this.taskDesc}
-    `) },
+    `)},
 };
 
 export function TaskCreate(taskName, taskProject, taskDesc, taskDue) {
@@ -14,6 +14,8 @@ export function TaskCreate(taskName, taskProject, taskDesc, taskDue) {
     task.taskProject = taskProject || "Personal";
     task.taskDesc = taskDesc || "";
     task.taskDue = taskDue;
+
+    PubSub.publish("taskCreated", task);
 
     return task;
 };

@@ -1,0 +1,237 @@
+
+
+
+
+/* Josh Comeau modern reset */
+
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*
+  2. Remove default margin
+*/
+* {
+    margin: 0;
+}
+
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+    isolation: isolate;
+}
+
+
+
+
+
+
+/* Fonts */
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 900;
+    font-style: normal;
+    src: url('./fonts/lato/lato-black-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-black-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 900;
+    font-style: italic;
+    src: url('./fonts/lato/lato-blackitalic-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-blackitalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 700;
+    font-style: normal;
+    src: url('./fonts/lato/lato-bold-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 700;
+    font-style: italic;
+    src: url('./fonts/lato/lato-bolditalic-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-bolditalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: normal;
+    font-style: italic;
+    src: url('./fonts/lato/lato-italic-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-italic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-style: normal;
+    src: url('./fonts/lato/lato-light-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-style: italic;
+    src: url('./fonts/lato/lato-lightitalic-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-lightitalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: normal;
+    font-style: normal;
+    src: url('./fonts/lato/lato-regular-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-regular-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 100;
+    font-style: normal;
+    src: url('./fonts/lato/lato-thin-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-thin-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-weight: 100;
+    font-style: italic;
+    src: url('./fonts/lato/lato-thinitalic-webfont.woff2') format('woff2'),
+        url('./fonts/lato/lato-thinitalic-webfont.woff') format('woff');
+}
+
+
+
+
+
+
+:root {
+    --primary-dark: #1E152A;
+    --secondary-dark: #514C57;
+    --tertiary-dark: #797283;
+    --light-dark: #B8B7B8;
+    --tertiary-for-tertiary: #686170;
+
+    --primary-background: #BDC8D6;
+    --secondary-background: #F7B197;
+    --tertiary-background: #DCE2EA;
+    --quarternary-background: #FBDBD0;
+
+    --highlight: #EF6939;
+    --error: #CC1313;
+}
+
+body {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-size: 2.25rem;
+    font-weight: 900;
+}
+
+h2 {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+h3 {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 900;
+}
+
+h4 {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+p {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+p.subtitle {
+    font-weight: normal;
+}
+
+p.subtext {
+    font-size: 0.75rem;
+    font-weight: regular;
+}
+
+button {
+    font-weight: bold;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    background-color: var(--primary-background);
+}

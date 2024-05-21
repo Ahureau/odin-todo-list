@@ -1,3 +1,5 @@
+import PubSub from "pubsub-js";
+
 const taskActions = {
     logTask() {console.log(`
     Task: ${this.taskName}
@@ -7,7 +9,7 @@ const taskActions = {
     `)},
 };
 
-export function TaskCreate(taskName, taskProject, taskDesc, taskDue) {
+export function createTask(taskName, taskProject, taskDesc, taskDue) {
     let task = Object.create(taskActions);
 
     task.taskName = taskName;

@@ -174,6 +174,9 @@ h6 {
 
     --primary-background: #BDC8D6;
     --secondary-background: #F7B197;
+    --secondary-background-opacity-light: rgba(247, 177, 151, 0.8);
+    --secondary-background-opacity-lighter: rgba(247, 177, 151, 0.5);
+    --secondary-background-opacity-lightest: rgba(247, 177, 151, 0.2);
     --tertiary-background: #DCE2EA;
     --quarternary-background: #FBDBD0;
 
@@ -225,7 +228,38 @@ p.subtext {
 }
 
 button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 100%;
     font-weight: bold;
+    appearance: none;
+    background-color: var(--secondary-background);
+    box-shadow: none;
+    border: none;
+    border-radius: 20px;
+}
+
+button:hover{
+    background-color: var(--secondary-background-opacity-light);
+}
+
+button:active {
+    background-color: var(--secondary-background-opacity-lighter);
+}
+
+button.secondary {
+    background-color: white;
+    border: 2px solid var(--secondary-background);
+}
+
+button.secondary:hover {
+    background-color: var(--secondary-background-opacity-lightest);
+}
+
+button.secondary:active {
+    background-color: var(--secondary-background-opacity-lighter);
 }
 
 header {
@@ -234,4 +268,66 @@ header {
     align-items: center;
     height: 5rem;
     background-color: var(--primary-background);
+}
+
+
+
+
+
+/* Task styles */
+
+.taskList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.taskItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.taskCheck {
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid var(--secondary-dark);
+    border-radius: 8px;
+}
+
+.taskCheck:checked {
+    background-color: var(--secondary-dark);
+    outline-offset: -5px;
+    outline: 3px solid white;
+}
+
+.taskShortDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.taskTags {
+    display: flex;
+    gap: 1rem;
+}
+
+.projectTag,
+.dateTag {
+    border-radius: 10px;
+    padding-left: 0.3125rem;
+    padding-right: 0.3125rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+.projectTag {
+    background-color: var(--primary-background);
+}
+
+.dateTag {
+    background-color: var(--secondary-background);
 }

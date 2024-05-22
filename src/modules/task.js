@@ -17,6 +17,7 @@ export function createTask(taskName, taskProject, taskDesc, taskDue) {
     task.taskDesc = taskDesc || "";
     task.taskDue = taskDue;
 
+    // Published an event when a task is created
     PubSub.publish("taskCreated", task);
 
     return task;

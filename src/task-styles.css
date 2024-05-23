@@ -1,6 +1,6 @@
 /* Task styles */
 
-.taskList {
+#taskList {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -50,6 +50,7 @@
 
 .taskLabel {
     color: var(--secondary-dark);
+    font-weight: 300;
     display: -webkit-box;
     /* Obligatory for line-clamp to work */
     -webkit-line-clamp: 2;

@@ -8,7 +8,7 @@ import { createTask } from './modules/task';
 import { uiTaskBuilder } from './modules/task-display';
 
 export const domSelector = (() => {
-    const taskList = document.querySelector(".taskList");
+    const taskList = document.querySelector("#taskList");
 
     return { taskList };
 })()

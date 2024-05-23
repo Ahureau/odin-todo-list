@@ -270,64 +270,9 @@ header {
     background-color: var(--primary-background);
 }
 
-
-
-
-
-/* Task styles */
-
-.taskList {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.taskItem {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-}
-
-.taskCheck {
-    appearance: none;
-    width: 2rem;
-    height: 2rem;
-    border: 2px solid var(--secondary-dark);
-    border-radius: 8px;
-}
-
-.taskCheck:checked {
-    background-color: var(--secondary-dark);
-    outline-offset: -5px;
-    outline: 3px solid white;
-}
-
-.taskShortDetails {
+main {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    flex-grow: 1;
-}
-
-.taskTags {
-    display: flex;
     gap: 1rem;
-}
-
-.projectTag,
-.dateTag {
-    border-radius: 10px;
-    padding-left: 0.3125rem;
-    padding-right: 0.3125rem;
-    padding-top: 0.125rem;
-    padding-bottom: 0.125rem;
-}
-
-.projectTag {
-    background-color: var(--primary-background);
-}
-
-.dateTag {
-    background-color: var(--secondary-background);
+    margin: 2rem 1rem;
 }

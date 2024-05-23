@@ -1,0 +1,111 @@
+/* Task styles */
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.taskItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    height: 4.875rem;
+}
+
+.taskCheck {
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border: 2px solid var(--secondary-dark);
+    border-radius: 8px;
+}
+
+.taskCheck:checked {
+    background-color: var(--secondary-dark);
+    outline-offset: -5px;
+    outline: 3px solid white;
+    border: var(--secondary-dark);
+}
+
+/* Makes the whole task lighter when checked, text still 4.5 contrast ratio */
+.taskCheck:checked,
+.taskCheck:checked+div .taskTags .projectTag,
+.taskCheck:checked+div .taskTags .dateTag,
+.taskCheck:checked+div>label {
+    opacity: 0.77;
+}
+
+.taskShortDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.taskLabel {
+    color: var(--secondary-dark);
+    display: -webkit-box;
+    /* Obligatory for line-clamp to work */
+    -webkit-line-clamp: 2;
+    /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    /* Obligatory for line-clamp to work */
+    text-overflow: ellipsis;
+    /* The overflowing text will be clipped and an ellipsis will be shown */
+    overflow: clip;
+}
+
+.taskCheck:checked+div>label {
+    /* Selects the label when the checkbox is checked */
+    text-decoration: line-through;
+}
+
+.taskTags {
+    display: flex;
+    gap: 1rem;
+}
+
+.projectTag,
+.dateTag {
+    border-radius: 10px;
+    padding-left: 0.3125rem;
+    padding-right: 0.3125rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+.projectTag {
+    background-color: var(--primary-background);
+}
+
+.dateTag {
+    background-color: var(--secondary-background);
+}
+
+.svgContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.rightChevron {
+    width: 24px;
+    height: 24px;
+}
+
+.rightChevron path {
+    fill: var(--secondary-dark);
+}
+
+.taskCheck:checked~a svg path {
+    fill: var(--tertiary-dark);
+}

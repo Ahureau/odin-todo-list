@@ -9,7 +9,7 @@ import { domSelector, taskContainer } from "../index.js";
 
 
 
-// This creates a container for the functions
+// Create the actual tasklist in UI
 
 // Create taskList in UI and let domSelector select it
 function taskListCreate(domLocation) {
@@ -25,10 +25,30 @@ function taskListCreate(domLocation) {
     domSelector.setTaskList();
 }
 
+// This creates the line that separates complete from incomplete tasks
+function completedLine(whereAdd) {
+    const completedLine = document.createElement("p");
+    completedLine.classList.add("subtext", "completedLine");
+    whereAdd.appendChild(completedLine);
+
+    const completedSpan = document.createElement("span");
+    completedSpan.textContent = "Completed";
+    completedLine.appendChild(completedSpan);
+}
+
+// Filter for creating the taskList. Looks
+function taskFilter(task, filter) {
+    return task.filter === filter ? task : false;
+}
+
+// THIS NEEDS TO BE CONTINUED TO MAKE FILTERS WORK
+
 // Fill the taskList created in taskListCreate based on date and project filters
 export function taskListFill(domLocation, projectFilter, dateFilter) {
 
     taskListCreate(domLocation);
+
+    completedLine(domSelector.taskList);
 
     // Cycle through all the tasks in taskContainer only displaying valid ones
     projectFilter = typeof projectFilter !== 'undefined' ? projectFilter : false;
@@ -36,7 +56,11 @@ export function taskListFill(domLocation, projectFilter, dateFilter) {
 
 
     for (const task of Object.values(taskContainer)) {
-        uiTaskBuilder(task);
+        // Create the task element
+        const taskElement = uiTaskBuilder(task);
+
+        // Insert the task element before the completed line
+        domSelector.taskList.prepend(taskElement);
     }
 }
 
@@ -51,7 +75,7 @@ export function uiTaskBuilder(task) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("taskItem");
     // Will always try to place it inside a ui element with ID "taskList"
-    domSelector.taskList.appendChild(taskItem);
+    // domSelector.taskList.appendChild(taskItem);
 
     // The input itself
     const taskCheck = document.createElement("input");
@@ -111,16 +135,7 @@ export function uiTaskBuilder(task) {
     const rightChevronPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
     rightChevronPath.setAttribute("d", "M12.6 12L8 7.4L9.4 6L15.4 12L9.4 18L8 16.6L12.6 12Z");
     rightChevron.appendChild(rightChevronPath);
+
+    // Return the created task element
+    return taskItem;
 };
-
-
-
-
-
-// This creates the line that separates complete from incomplete tasks
-
-// function completedLine() {
-
-// }
-
-// <p class="subtext completedLine"><span>Completed</span></p>

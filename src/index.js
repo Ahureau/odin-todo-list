@@ -4,6 +4,7 @@ import './task-styles.css';
 import PubSub from 'pubsub-js';
 
 import { createTask } from './modules/task';
+import { taskContainer } from './modules/task';
 export { taskContainer } from './modules/task';
 import { uiTaskBuilder, taskListFill } from './modules/task-display';
 
@@ -18,9 +19,23 @@ export const domSelector = (() => {
         domSelector.taskList = null;
     } ;
   }
+// YOU NEED TO ADD THE LISTENER AS ITS OWN FUNCTION AND THEN REFERENCE IS TO ADD AND REMOVE
 
   function setTaskList() {
     domSelector.taskList = document.querySelector("#taskList");
+    domSelector.taskList.addEventListener("change", (event) => {
+        const checkbox = event.target;
+
+        if (checkbox.checked) {
+            console.log(`${checkbox.id} was checked`);
+            taskContainer[checkbox.id].setDone();
+            console.log(taskContainer);
+        } else {
+            console.log(`${checkbox.id} was unchecked`);
+            taskContainer[checkbox.id].setNotDone();
+            console.log(taskContainer);
+        }
+    });
   }
 
   return {
@@ -35,13 +50,11 @@ export const domSelector = (() => {
 
 
 
-
-
-
 // TEMP to test task creation
 const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", undefined, "Some sort of details", "today");
 const task2 = createTask("Example task 2", undefined, undefined, "today");
 const task3 = createTask("Example task 3", undefined, undefined, "today");
+
 
 //Testing task list create
 taskListFill(domSelector.main);

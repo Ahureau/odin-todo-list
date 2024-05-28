@@ -21,6 +21,12 @@ const taskActions = {
     Details: ${this.taskDesc}
     Completed: ${this.taskDone}
     `)},
+    setDone() {
+        this.taskDone = true;
+    },
+    setNotDone() {
+        this.taskDone = false;
+    },
 };
 
 export function createTask(taskName, taskProject, taskDesc, taskDue) {

@@ -122,13 +122,13 @@
 
 
 
-/* Task hr break style */
+/* Task completed break style */
 
 .completedLine {
     width: 100%;
     text-align: center;
     border-bottom: 2px solid var(--primary-background);
-    line-height: 0.1rem;
+    line-height: 0rem;
     margin: 0.625rem 0 0.625rem;
 }
 

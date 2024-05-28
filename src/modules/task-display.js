@@ -64,15 +64,36 @@ function handleCheckboxChange(event) {
     }
 };
 
+// Moves a task to be right after the completed line, hence marked as "complete"
+function moveCompletedTask(task) {
+    if (domSelector.completedLine){
+        domSelector.completedLine.after(task);
+    } else {
+        // If this is the first completed task, it asks for a completedLine to be created
+        createCompletedLine(domSelector.taskList);
+        domSelector.completedLine.after(task);
+    }
+}
+
+// Moves a task to be right before the completed line, hence marked as "incomplete"
+function moveIncompleteTask(task) {
+    domSelector.completedLine.before(task);
+    // When there are no completed tasks, the completedLine is removed
+    if (domSelector.completedLine === domSelector.taskList.lastChild){
+        domSelector.completedLine.remove();
+        domSelector.resetCompletedLine();
+    }
+}
 
 
 
 
 
-// Completed line & functions for before / after
+
+// Completed line
 
 // Creates the line that separates complete from incomplete tasks
-function completedLine(whereAdd) {
+function createCompletedLine(whereAdd) {
     const completedLine = document.createElement("p");
     completedLine.classList.add("subtext");
     completedLine.setAttribute("id", "completedLine");
@@ -83,16 +104,6 @@ function completedLine(whereAdd) {
     const completedSpan = document.createElement("span");
     completedSpan.textContent = "Completed";
     completedLine.appendChild(completedSpan);
-}
-
-function moveCompletedTask(task) {
-    domSelector.taskList.removeChild(task);
-    domSelector.taskList.appendChild(task);
-}
-
-function moveIncompleteTask(task) {
-    domSelector.taskList.removeChild(task);
-    domSelector.taskList.insertBefore(task, domSelector.completedLine);
 }
 
 
@@ -110,7 +121,13 @@ export function taskListFill(domLocation, projectFilter, dateFilter) {
 
     taskListCreate(domLocation);
 
-    completedLine(domSelector.taskList);
+    // Only create the completed line if there is a task in the taskContainer that's completed
+    for (const task of Object.values(taskContainer)) {
+        if (task.taskDone === true){
+            createCompletedLine(domSelector.taskList);
+            break;
+        }
+    }
 
     // Cycle through all the tasks in taskContainer only displaying valid ones
     projectFilter = typeof projectFilter !== 'undefined' ? projectFilter : false;
@@ -121,10 +138,19 @@ export function taskListFill(domLocation, projectFilter, dateFilter) {
         // Create the task element
         const taskElement = uiTaskBuilder(task);
 
-        // Insert the task element before the completed line
-        domSelector.taskList.prepend(taskElement);
+        if (task.taskDone){
+            // If the task is done the completedLine should be present, so we add it after that
+            domSelector.completedLine.after(taskElement);
+            // Task is checked in UI
+            const checkbox = taskElement.querySelector(`#${task.id}`);
+            checkbox.checked = true;
+        } else {
+            // Insert the task element before the completed line
+            domSelector.taskList.prepend(taskElement);
+        }
     }
 }
+
 
 
 

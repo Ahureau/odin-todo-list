@@ -58,14 +58,15 @@
 .taskLabel {
     color: var(--secondary-dark);
     font-weight: 300;
+    /* Weird thing to clip multiple lines */
+    /* Obligatory for line-clamp to work */
     display: -webkit-box;
-    /* Obligatory for line-clamp to work */
-    -webkit-line-clamp: 2;
     /* Number of lines to show */
-    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     /* Obligatory for line-clamp to work */
-    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
     /* The overflowing text will be clipped and an ellipsis will be shown */
+    text-overflow: ellipsis;
     overflow: clip;
 }
 
@@ -77,6 +78,7 @@
 .taskTags {
     display: flex;
     gap: 1rem;
+    color: var(--secondary-dark);
 }
 
 .projectTag,
@@ -135,4 +137,5 @@
 #completedLine span {
     background: white;
     padding: 0 0.625rem;
+    color: var(--secondary-dark);
 }

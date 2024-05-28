@@ -35,6 +35,7 @@ function createID(taskName) {
 
 // This creates individual tasks
 
+// Methods are in the prototype of the tasks
 const taskActions = {
     logTask() {console.log(`
     Task: ${this.taskName}
@@ -51,6 +52,7 @@ const taskActions = {
     },
 };
 
+// Factory function for creating tasks
 export function createTask(taskName, taskProject, taskDesc, taskDue) {
     let task = Object.create(taskActions);
 

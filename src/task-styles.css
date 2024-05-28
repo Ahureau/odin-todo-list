@@ -124,7 +124,7 @@
 
 /* Task completed break style */
 
-.completedLine {
+#completedLine {
     width: 100%;
     text-align: center;
     border-bottom: 2px solid var(--primary-background);
@@ -132,7 +132,7 @@
     margin: 0.625rem 0 0.625rem;
 }
 
-.completedLine span {
+#completedLine span {
     background: white;
     padding: 0 0.625rem;
 }

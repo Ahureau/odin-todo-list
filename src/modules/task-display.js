@@ -51,14 +51,15 @@ function removeTaskList() {
 function handleCheckboxChange(event) {
     // Checkbox that is the event target
     const checkbox = event.target;
+    const taskLine = checkbox.parentElement;
     // Find task that matches the ID of the checkbox event target
     const task = Object.values(taskContainer).find(targetTask => targetTask.id === checkbox.id);
 
     if (checkbox.checked) {
-        task.setDone();
+        moveCompletedTask(taskLine);
         PubSub.publish("checkboxChecked", task);
     } else {
-        task.setNotDone();
+        moveIncompleteTask(taskLine);
         PubSub.publish("checkboxUnchecked", task);
     }
 };
@@ -68,15 +69,30 @@ function handleCheckboxChange(event) {
 
 
 
+// Completed line & functions for before / after
+
 // Creates the line that separates complete from incomplete tasks
 function completedLine(whereAdd) {
     const completedLine = document.createElement("p");
-    completedLine.classList.add("subtext", "completedLine");
+    completedLine.classList.add("subtext");
+    completedLine.setAttribute("id", "completedLine");
     whereAdd.appendChild(completedLine);
+    // Update domSelector with completed line reference
+    domSelector.updateCompletedLine();
 
     const completedSpan = document.createElement("span");
     completedSpan.textContent = "Completed";
     completedLine.appendChild(completedSpan);
+}
+
+function moveCompletedTask(task) {
+    domSelector.taskList.removeChild(task);
+    domSelector.taskList.appendChild(task);
+}
+
+function moveIncompleteTask(task) {
+    domSelector.taskList.removeChild(task);
+    domSelector.taskList.insertBefore(task, domSelector.completedLine);
 }
 
 

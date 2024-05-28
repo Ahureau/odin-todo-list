@@ -6,11 +6,12 @@ import PubSub from 'pubsub-js';
 import { createTask } from './modules/task';
 import { taskContainer } from './modules/task';
 export { taskContainer } from './modules/task';
-import { uiTaskBuilder, taskListFill } from './modules/task-display';
+import { taskListFill } from './modules/task-display';
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
     const main = document.querySelector("main");
+    const completedLine = document.querySelector("#completedLine");
     let taskList = document.querySelector("#taskList");
 
     function resetTaskList(){
@@ -20,18 +21,26 @@ export const domSelector = (() => {
 
     function updateTaskList(){
         domSelector.taskList = document.querySelector("#taskList");
+    };
+
+    function resetCompletedLine(){
+        domSelector.completedLine = null; // Not currently in use, can be removed?
+    }
+
+    function updateCompletedLine(){
+        domSelector.completedLine = document.querySelector("#completedLine");
     }
 
     return {
-        taskList,
         main,
+        completedLine,
+        taskList,
         resetTaskList,
         updateTaskList,
+        resetCompletedLine,
+        updateCompletedLine,
   };
 })();
-
-
-
 
 
 // TEMP to test task creation
@@ -43,12 +52,33 @@ const task3 = createTask("Example task 3", undefined, undefined, "today");
 //Testing task list create
 taskListFill(domSelector.main);
 
+
+// PubSub to update the tasks to done or not done based on UI changes
 const taskListUpdate = (msg, data) => {
-    // THIS NEEDS TO REFRESH THE POSITION OF THE TASK
+    switch (msg){
+        case "checkboxChecked":
+            for (let taskObj in taskContainer){
+                if (taskContainer[taskObj].id === data.id){
+                    taskContainer[taskObj].setDone();
+                    console.log(taskContainer[taskObj]);
+                    break;
+                }
+            }
+            break;
+        case "checkboxUnchecked":
+            for (let taskObj in taskContainer) {
+                if (taskContainer[taskObj].id === data.id) {
+                    taskContainer[taskObj].setNotDone();
+                    console.log(taskContainer[taskObj]);
+                    break;
+                    }
+            }
+            break;
+    }
 }
 
-const taskListUpdateCheck = PubSub.subscribe("checkboxChecked", taskListUpdate);
-const taskListUpdateUncheck = PubSub.subscribe("checkboxUnchecked", taskListUpdate);
+const taskListUpdateCheckToken = PubSub.subscribe("checkboxChecked", taskListUpdate);
+const taskListUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", taskListUpdate);
 
 
 

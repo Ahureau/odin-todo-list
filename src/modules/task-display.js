@@ -25,38 +25,50 @@ function taskListCreate(domLocation) {
     setTaskList();
 }
 
-// *****
-
-function isChecked(event){
-    const checkbox = event.target;
-
-    if (checkbox.checked) {
-        console.log(`${checkbox.id} was checked`);
-        taskContainer[checkbox.id].setDone();
-        console.log(taskContainer);
-    } else {
-        console.log(`${checkbox.id} was unchecked`);
-        taskContainer[checkbox.id].setNotDone();
-        console.log(taskContainer);
-    }
+// Sets the task list event and DOM location
+function setTaskList() {
+    domSelector.updateTaskList();
+    // Event listener for task list checkboxes
+    domSelector.taskList.addEventListener("change", handleCheckboxChange);
 };
 
+// Removes the task list from the UI
 function removeTaskList() {
     if (domSelector.taskList) {
+        // Removes the event listener set in setTaskList
+        domSelector.taskList.removeEventListener("change", handleCheckboxChange);
         domSelector.resetTaskList();
     };
 }
-// YOU NEED TO ADD THE LISTENER AS ITS OWN FUNCTION AND THEN REFERENCE IS TO ADD AND REMOVE
 
-function setTaskList() {
-    domSelector.updateTaskList();
-    domSelector.taskList.addEventListener("change", isChecked);
+
+
+
+
+// Checkbox functions
+
+// Sets the task to checked or unchecked based on UI input and publishes event
+function handleCheckboxChange(event) {
+    // Checkbox that is the event target
+    const checkbox = event.target;
+    // Find task that matches the ID of the checkbox event target
+    const task = Object.values(taskContainer).find(targetTask => targetTask.id === checkbox.id);
+
+    if (checkbox.checked) {
+        task.setDone();
+        PubSub.publish("checkboxChecked", task);
+    } else {
+        task.setNotDone();
+        PubSub.publish("checkboxUnchecked", task);
+    }
 };
 
 
-// ****
 
-// This creates the line that separates complete from incomplete tasks
+
+
+
+// Creates the line that separates complete from incomplete tasks
 function completedLine(whereAdd) {
     const completedLine = document.createElement("p");
     completedLine.classList.add("subtext", "completedLine");
@@ -67,12 +79,15 @@ function completedLine(whereAdd) {
     completedLine.appendChild(completedSpan);
 }
 
-// Filter for creating the taskList. Looks
+
+
+
+
+
+// Filter for creating the taskList NOT COMPLETED
 function taskFilter(task, filter) {
     return task.filter === filter ? task : false;
 }
-
-// THIS NEEDS TO BE CONTINUED TO MAKE FILTERS WORK
 
 // Fill the taskList created in taskListCreate based on date and project filters
 export function taskListFill(domLocation, projectFilter, dateFilter) {
@@ -98,6 +113,7 @@ export function taskListFill(domLocation, projectFilter, dateFilter) {
 
 
 
+
 // This creates individual tasks
 
 export function uiTaskBuilder(task) {
@@ -111,7 +127,7 @@ export function uiTaskBuilder(task) {
     // The input itself
     const taskCheck = document.createElement("input");
     taskCheck.setAttribute("type", "checkbox");
-    taskCheck.setAttribute("id", task.taskName); // This can cause issues if 2 tasks have the same name
+    taskCheck.setAttribute("id", task.id); // This can cause issues if 2 tasks have the same name
     taskCheck.classList.add("taskCheck");
     taskItem.appendChild(taskCheck);
 

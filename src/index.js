@@ -42,3 +42,21 @@ const task3 = createTask("Example task 3", undefined, undefined, "today");
 
 //Testing task list create
 taskListFill(domSelector.main);
+
+const taskListUpdate = (msg, data) => {
+    // THIS NEEDS TO REFRESH THE POSITION OF THE TASK
+}
+
+const taskListUpdateCheck = PubSub.subscribe("checkboxChecked", taskListUpdate);
+const taskListUpdateUncheck = PubSub.subscribe("checkboxUnchecked", taskListUpdate);
+
+
+
+// Test subscribe
+
+// const testSubscribe = (msg, data) => {
+//     console.log(msg, data);
+// }
+
+// let testCheck = PubSub.subscribe("checkboxChecked", testSubscribe);
+// let testUncheck = PubSub.subscribe("checkboxUnchecked", testSubscribe);

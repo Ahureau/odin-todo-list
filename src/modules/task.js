@@ -11,6 +11,28 @@ export const taskContainer = {};
 
 
 
+// Create a unique ID
+const createUniqueId = (() => {
+    let uniqueID = 1;
+
+    function add() {
+        return uniqueID++;
+    }
+
+    return {
+        add
+    }
+})();
+
+// Creates an ID based on string length and ever-increasing uniqueID
+function createID(taskName) {
+    const taskId = `L${taskName.length}ID${createUniqueId.add()}`;
+    return taskId;
+}
+
+
+
+
 // This creates individual tasks
 
 const taskActions = {
@@ -37,6 +59,7 @@ export function createTask(taskName, taskProject, taskDesc, taskDue) {
     task.taskDesc = taskDesc || "";
     task.taskDue = taskDue;
     task.taskDone = false;
+    task.id = createID(task.taskName);
 
     taskContainer[task.taskName] = task;
 

@@ -10,39 +10,23 @@ import { uiTaskBuilder, taskListFill } from './modules/task-display';
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
-  const main = document.querySelector("main");
-  let taskList = document.querySelector("#taskList");
+    const main = document.querySelector("main");
+    let taskList = document.querySelector("#taskList");
 
-  function removeTaskList() {
-    if (domSelector.taskList) {
+    function resetTaskList(){
         domSelector.taskList.remove();
         domSelector.taskList = null;
-    } ;
-  }
-// YOU NEED TO ADD THE LISTENER AS ITS OWN FUNCTION AND THEN REFERENCE IS TO ADD AND REMOVE
+    };
 
-  function setTaskList() {
-    domSelector.taskList = document.querySelector("#taskList");
-    domSelector.taskList.addEventListener("change", (event) => {
-        const checkbox = event.target;
+    function updateTaskList(){
+        domSelector.taskList = document.querySelector("#taskList");
+    }
 
-        if (checkbox.checked) {
-            console.log(`${checkbox.id} was checked`);
-            taskContainer[checkbox.id].setDone();
-            console.log(taskContainer);
-        } else {
-            console.log(`${checkbox.id} was unchecked`);
-            taskContainer[checkbox.id].setNotDone();
-            console.log(taskContainer);
-        }
-    });
-  }
-
-  return {
-    taskList,
-    main,
-    removeTaskList,
-    setTaskList,
+    return {
+        taskList,
+        main,
+        resetTaskList,
+        updateTaskList,
   };
 })();
 
@@ -58,27 +42,3 @@ const task3 = createTask("Example task 3", undefined, undefined, "today");
 
 //Testing task list create
 taskListFill(domSelector.main);
-
-// uiTaskBuilder(task1);
-// uiTaskBuilder(task2);
-// uiTaskBuilder(task3);
-
-// // Testing to see if the mutation observer works
-// function test() {
-//   if (domSelector.taskList) {
-//     // Remove the taskList from the DOM, but keep the variable
-//     domSelector.removeTaskList();
-//   } else {
-//     // Create a new taskList and add it to the DOM
-//     const taskList = document.createElement("ul");
-//     taskList.setAttribute("id", "taskList");
-//     domSelector.main.prepend(taskList);
-//     domSelector.setTaskList();
-//     uiTaskBuilder(task1);
-//     uiTaskBuilder(task2);
-//     uiTaskBuilder(task3);
-//   }
-// }
-
-// const testButton = document.querySelector("#test");
-// testButton.addEventListener("click", test);

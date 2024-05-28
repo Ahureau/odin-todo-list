@@ -16,14 +16,45 @@ function taskListCreate(domLocation) {
 
     // If there's already a taskList delete it
     if (domSelector.taskList){
-        domSelector.removeTaskList();
+        removeTaskList();
     }
     // Create taskList
     const taskList = document.createElement("ul");
     taskList.setAttribute("id", "taskList");
     domLocation.appendChild(taskList);
-    domSelector.setTaskList();
+    setTaskList();
 }
+
+// *****
+
+function isChecked(event){
+    const checkbox = event.target;
+
+    if (checkbox.checked) {
+        console.log(`${checkbox.id} was checked`);
+        taskContainer[checkbox.id].setDone();
+        console.log(taskContainer);
+    } else {
+        console.log(`${checkbox.id} was unchecked`);
+        taskContainer[checkbox.id].setNotDone();
+        console.log(taskContainer);
+    }
+};
+
+function removeTaskList() {
+    if (domSelector.taskList) {
+        domSelector.resetTaskList();
+    };
+}
+// YOU NEED TO ADD THE LISTENER AS ITS OWN FUNCTION AND THEN REFERENCE IS TO ADD AND REMOVE
+
+function setTaskList() {
+    domSelector.updateTaskList();
+    domSelector.taskList.addEventListener("change", isChecked);
+};
+
+
+// ****
 
 // This creates the line that separates complete from incomplete tasks
 function completedLine(whereAdd) {

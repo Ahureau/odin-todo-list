@@ -47,13 +47,13 @@ export const domSelector = (() => {
 const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", undefined, "Some sort of details", "today");
 const task2 = createTask("Example task 2", "Pool", undefined, "today");
 const task3 = createTask("Example task 3", "Hockey", undefined, "Tomorrow");
-const task4 = createTask("Example task 4", "Hockey", undefined, "Tomorrow");
+const task4 = createTask("Example task 4", "Personal", undefined, "Tomorrow");
 
 task4.setDone();
 
 
 //Testing task list create
-taskListFill(domSelector.main, "today");
+taskListFill(domSelector.main);
 
 
 // PubSub to update the tasks to done or not done based on UI changes
@@ -80,14 +80,3 @@ const taskListUpdate = (msg, data) => {
 
 const taskListUpdateCheckToken = PubSub.subscribe("checkboxChecked", taskListUpdate);
 const taskListUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", taskListUpdate);
-
-
-
-// Test subscribe
-
-// const testSubscribe = (msg, data) => {
-//     console.log(msg, data);
-// }
-
-// let testCheck = PubSub.subscribe("checkboxChecked", testSubscribe);
-// let testUncheck = PubSub.subscribe("checkboxUnchecked", testSubscribe);

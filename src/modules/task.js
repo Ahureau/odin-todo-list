@@ -10,7 +10,9 @@ export const taskContainer = {};
 
 
 
+// Creates an ID based on time of creation
 
+// For testing purposes we add a unique number as all tasks are created at the same time
 // Create a unique ID
 const createUniqueId = (() => {
     let uniqueID = 1;
@@ -24,9 +26,8 @@ const createUniqueId = (() => {
     }
 })();
 
-// Creates an ID based on string length and ever-increasing uniqueID
 function createID(taskName) {
-    const taskId = `L${taskName.length}ID${createUniqueId.add()}`;
+    const taskId = `L${taskName.length}ID${Date.now()}${createUniqueId.add()}`;
     return taskId;
 }
 

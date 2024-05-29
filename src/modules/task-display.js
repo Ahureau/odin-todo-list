@@ -110,34 +110,72 @@ function createCompletedLine(whereAdd) {
 
 
 
+// Filter and main builder function
 
-// Filter for creating the taskList NOT COMPLETED
-function taskFilter(task, filter) {
-    return task.filter === filter ? task : false;
+// Applies filters to each task
+function filterTasks(printList, filters) {
+    for (let i = printList.length - 1; i >= 0; i--) {
+        const task = printList[i];
+        let taskMatchesAllFilters = true;
+
+        // Apply all filters to all tasks
+        for (const filter of filters) {
+            const filterKey = Object.keys(filter)[0];
+            const filterValue = Object.values(filter)[0];
+
+            // If the filter is not set, continue to the next filter
+            if (filterValue === undefined) {
+                continue;
+            }
+
+            // Checks if the value of the filter is the same as that of the task property
+            if (task[filterKey] !== filterValue) {
+                taskMatchesAllFilters = false;
+                break;
+            }
+        }
+
+        // Updates the printList if one of the filters was not matched
+        if (!taskMatchesAllFilters) {
+            printList.splice(i, 1);
+        }
+    }
+
+    return printList;
 }
 
+
 // Fill the taskList created in taskListCreate based on date and project filters
-export function taskListFill(domLocation, projectFilter, dateFilter) {
+export function taskListFill(domLocation, filterProject, filterDate) {
 
     taskListCreate(domLocation);
 
+    // Defines a printList to iterate through
+    let printList = Object.values(taskContainer);
+
+    // Check for filters
+    // To add more filters you need to add them here and as arguments for this function
+    const filters = [
+        {taskProject: filterProject}, 
+        {taskDue: filterDate}
+    ];
+    
+    filterTasks(printList, filters);
+    
     // Only create the completed line if there is a task in the taskContainer that's completed
-    for (const task of Object.values(taskContainer)) {
+    for (const task of printList) {
         if (task.taskDone === true){
             createCompletedLine(domSelector.taskList);
             break;
         }
     }
 
-    // Cycle through all the tasks in taskContainer only displaying valid ones
-    projectFilter = typeof projectFilter !== 'undefined' ? projectFilter : false;
-    dateFilter = typeof dateFilter !== 'undefined' ? dateFilter : false;
-
-
-    for (const task of Object.values(taskContainer)) {
+    // Iterates over all the tasks that should be printed based on filters
+    for (const task of printList) {
         // Create the task element
         const taskElement = uiTaskBuilder(task);
 
+        // Decides where to place the task element
         if (task.taskDone){
             // If the task is done the completedLine should be present, so we add it after that
             domSelector.completedLine.after(taskElement);
@@ -158,7 +196,7 @@ export function taskListFill(domLocation, projectFilter, dateFilter) {
 
 // This creates individual tasks
 
-export function uiTaskBuilder(task) {
+function uiTaskBuilder(task) {
 
     // The line element for a task item
     const taskItem = document.createElement("li");
@@ -169,7 +207,7 @@ export function uiTaskBuilder(task) {
     // The input itself
     const taskCheck = document.createElement("input");
     taskCheck.setAttribute("type", "checkbox");
-    taskCheck.setAttribute("id", task.id); // This can cause issues if 2 tasks have the same name
+    taskCheck.setAttribute("id", task.id);
     taskCheck.classList.add("taskCheck");
     taskItem.appendChild(taskCheck);
 

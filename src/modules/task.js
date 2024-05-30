@@ -123,7 +123,9 @@ const jsonSaveCheckToken = PubSub.subscribe("checkboxChecked", jsonSave);
 const jsonSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jsonSave);
 
 export const jsonLoad = async() => {
-    if (localStorage.getItem("taskStored")) {
+    // jsonLoad will only load the JSON if there's information in the local storage & the taskContainer is empty.
+    // This means this only runs on first operation
+    if (localStorage.getItem("taskStored") && Object.keys(taskContainer).length === 0) {
         const taskJson = localStorage.getItem("taskStored");
         const taskParsed = JSON.parse(taskJson);
         taskContainer = {};
@@ -132,7 +134,8 @@ export const jsonLoad = async() => {
             Object.assign(task, taskParsed[key]);
             taskContainer[key] = task;
         });
-    } else {
+    // When done with testing, this will just exit the function and will be deleted
+    } else { // THIS IS FOR TEST PURPOSES. LATER THIS WILL JUST STOP THE FUNCTION
         const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", undefined, "Some sort of details", "today");
         const task2 = createTask("Example task 2", "Pool", undefined, "today");
         const task3 = createTask("Example task 3", "Hockey", undefined, "Tomorrow");

@@ -6,6 +6,7 @@ import PubSub from 'pubsub-js';
 export { taskContainer, jsonLoad } from './modules/task';
 import { createTask, jsonLoad } from './modules/task';
 import { taskListFill } from './modules/task-display';
+import { createProject, projectContainer } from './modules/projects';
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
@@ -42,7 +43,31 @@ export const domSelector = (() => {
 })();
 
 
-// TEMP Testing task list create
-(async () => {
-    await taskListFill(domSelector.main);
+
+
+// Creates an ID based on time of creation
+
+// For testing purposes we add a unique number as all tasks are created at the same time
+// Create a unique ID
+const createUniqueId = (() => {
+    let uniqueID = 1;
+
+    function add() {
+        return uniqueID++;
+    }
+
+    return {
+        add
+    }
 })();
+
+export function createID(name) {
+    const uniqueID = `L${name.length}ID${Date.now()}${createUniqueId.add()}`;
+    return uniqueID;
+}
+
+
+// TEMP Testing task list create
+taskListFill(domSelector.main);
+
+createProject("Some project");

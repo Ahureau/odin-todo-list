@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 
-import { domSelector, taskContainer } from "../index.js";
+import { domSelector, taskContainer, jsonLoad } from "../index.js";
 
 // This module creates tasks in the UI
 
@@ -146,7 +146,9 @@ function filterTasks(printList, filters) {
 
 
 // Fill the taskList created in taskListCreate based on date and project filters
-export function taskListFill(domLocation, filterProject, filterDate) {
+export const taskListFill = async function(domLocation, filterProject, filterDate) {
+
+    await jsonLoad();
 
     taskListCreate(domLocation);
 
@@ -185,6 +187,9 @@ export function taskListFill(domLocation, filterProject, filterDate) {
         } else {
             // Insert the task element before the completed line
             domSelector.taskList.prepend(taskElement);
+            // Task is checked in UI
+            const checkbox = taskElement.querySelector(`#${task.id}`);
+            checkbox.checked = false;
         }
     }
 }
@@ -201,8 +206,6 @@ function uiTaskBuilder(task) {
     // The line element for a task item
     const taskItem = document.createElement("li");
     taskItem.classList.add("taskItem");
-    // Will always try to place it inside a ui element with ID "taskList"
-    // domSelector.taskList.appendChild(taskItem);
 
     // The input itself
     const taskCheck = document.createElement("input");

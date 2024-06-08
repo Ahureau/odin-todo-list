@@ -80,80 +80,80 @@ h6 {
     font-family: 'Lato';
     font-weight: 900;
     font-style: normal;
-    src: url('./fonts/lato/lato-black-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-black-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-black-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-black-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 900;
     font-style: italic;
-    src: url('./fonts/lato/lato-blackitalic-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-blackitalic-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-blackitalic-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-blackitalic-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 700;
     font-style: normal;
-    src: url('./fonts/lato/lato-bold-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-bold-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-bold-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-bold-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 700;
     font-style: italic;
-    src: url('./fonts/lato/lato-bolditalic-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-bolditalic-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-bolditalic-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-bolditalic-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: normal;
     font-style: italic;
-    src: url('./fonts/lato/lato-italic-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-italic-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-italic-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-italic-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 300;
     font-style: normal;
-    src: url('./fonts/lato/lato-light-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-light-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-light-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-light-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 300;
     font-style: italic;
-    src: url('./fonts/lato/lato-lightitalic-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-lightitalic-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-lightitalic-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-lightitalic-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: normal;
     font-style: normal;
-    src: url('./fonts/lato/lato-regular-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-regular-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-regular-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-regular-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 100;
     font-style: normal;
-    src: url('./fonts/lato/lato-thin-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-thin-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-thin-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-thin-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Lato';
     font-weight: 100;
     font-style: italic;
-    src: url('./fonts/lato/lato-thinitalic-webfont.woff2') format('woff2'),
-        url('./fonts/lato/lato-thinitalic-webfont.woff') format('woff');
+    src: url('../fonts/lato/lato-thinitalic-webfont.woff2') format('woff2'),
+        url('../fonts/lato/lato-thinitalic-webfont.woff') format('woff');
 }
 
 

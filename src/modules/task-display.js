@@ -15,7 +15,7 @@ import { domSelector, taskContainer, jsonLoad } from "../index.js";
 function taskListCreate(domLocation) {
 
     // If there's already a taskList delete it
-    if (domSelector.taskList){
+    if (domSelector.taskList) {
         removeTaskList();
     }
     // Create taskList
@@ -66,7 +66,7 @@ function handleCheckboxChange(event) {
 
 // Moves a task to be right after the completed line, hence marked as "complete"
 function moveCompletedTask(task) {
-    if (domSelector.completedLine){
+    if (domSelector.completedLine) {
         domSelector.completedLine.after(task);
     } else {
         // If this is the first completed task, it asks for a completedLine to be created
@@ -79,7 +79,7 @@ function moveCompletedTask(task) {
 function moveIncompleteTask(task) {
     domSelector.completedLine.before(task);
     // When there are no completed tasks, the completedLine is removed
-    if (domSelector.completedLine === domSelector.taskList.lastChild){
+    if (domSelector.completedLine === domSelector.taskList.lastChild) {
         domSelector.completedLine.remove();
         domSelector.resetCompletedLine();
     }
@@ -146,56 +146,55 @@ function filterTasks(printList, filters) {
 
 
 // Fill the taskList created in taskListCreate based on date and project filters
-export const taskListFill = function(domLocation, filterProject, filterDate) {
+export const taskListFill = function (domLocation, filterProject, filterDate) {
 
     // localStorage doesn't need async operations, but just in case it's set up to wait. Later can pull it from a server instead.
     // FOR TESTING PURPOSES IT CURRENTLY RETURNS TASKS EVEN IF LOCAL STORAGE IS EMPTY
-    jsonLoad().then(
-        
-        // When promise is resolved we create the tasklist
-        function(){taskListCreate(domLocation);
+    jsonLoad();
 
-        // Defines a printList to iterate through
-        let printList = Object.values(taskContainer);
+    // When promise is resolved we create the tasklist
+    taskListCreate(domLocation);
 
-        // Check for filters
-        // To add more filters you need to add them here and as arguments for this function
-        const filters = [
-            {taskProject: filterProject}, 
-            {taskDue: filterDate}
-        ];
-    
-        filterTasks(printList, filters);
-    
-        // Only create the completed line if there is a task in the taskContainer that's completed
-        for (const task of printList) {
-            if (task.taskDone === true){
-                createCompletedLine(domSelector.taskList);
-                break;
-            }
+    // Defines a printList to iterate through
+    let printList = Object.values(taskContainer);
+
+    // Check for filters
+    // To add more filters you need to add them here and as arguments for this function
+    const filters = [
+        { taskProject: filterProject },
+        { taskDue: filterDate }
+    ];
+
+    filterTasks(printList, filters);
+
+    // Only create the completed line if there is a task in the taskContainer that's completed
+    for (const task of printList) {
+        if (task.taskDone === true) {
+            createCompletedLine(domSelector.taskList);
+            break;
         }
+    }
 
-        // Iterates over all the tasks that should be printed based on filters
-        for (const task of printList) {
-            // Create the task element
-            const taskElement = uiTaskBuilder(task);
+    // Iterates over all the tasks that should be printed based on filters
+    for (const task of printList) {
+        // Create the task element
+        const taskElement = uiTaskBuilder(task);
 
-            // Decides where to place the task element
-            if (task.taskDone){
-                // If the task is done the completedLine should be present, so we add it after that
-                domSelector.completedLine.after(taskElement);
-                // Task is checked in UI
-                const checkbox = taskElement.querySelector(`#${task.id}`);
-                checkbox.checked = true;
-            } else {
-                // Insert the task element before the completed line
-                domSelector.taskList.prepend(taskElement);
-                // Task is checked in UI
-                const checkbox = taskElement.querySelector(`#${task.id}`);
-                checkbox.checked = false;
-            }
-        }}
-    );
+        // Decides where to place the task element
+        if (task.taskDone) {
+            // If the task is done the completedLine should be present, so we add it after that
+            domSelector.completedLine.after(taskElement);
+            // Task is checked in UI
+            const checkbox = taskElement.querySelector(`#${task.id}`);
+            checkbox.checked = true;
+        } else {
+            // Insert the task element before the completed line
+            domSelector.taskList.prepend(taskElement);
+            // Task is checked in UI
+            const checkbox = taskElement.querySelector(`#${task.id}`);
+            checkbox.checked = false;
+        }
+    }
 }
 
 

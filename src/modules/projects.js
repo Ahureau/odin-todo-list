@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 
-import { createID } from "../index.js";
+import { createID, taskContainer } from "../index.js";
 
 export let projectContainer = {};
 
@@ -19,6 +19,7 @@ export const createProject = (projectName) => {
 
     project.projectName = projectName;
     project.id = createID(project.projectName);
+    project.taskCount = 0;
 
     projectContainer[project.projectName] = project;
 
@@ -27,3 +28,26 @@ export const createProject = (projectName) => {
 
     return project;
 }
+
+// Updates the number of tasks in each project IDEALLY USE PUBSUB TO RUN THIS WHEN A NEW TASK IS CREATED
+const updateProjectCount = () => {
+    for (const project in projectContainer) {
+        let taskCount = 0;
+        for (const task in taskContainer) {
+            const taskObj = taskContainer[task];
+            // If a task is within that project and isn't done we count it
+            if (taskObj.taskDone === false &&
+                taskObj.taskProject === projectContainer[project].projectName) {
+                taskCount++
+            }
+        }
+        projectContainer[project].taskCount = taskCount;
+    }
+}
+
+// PubSub to update project count
+const autoUpdateProjectCount = (msg, data) => {
+    updateProjectCount();
+};
+
+const updateProjectCountTaskCreatedToken = PubSub.subscribe("taskCreated", autoUpdateProjectCount);

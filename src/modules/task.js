@@ -1,5 +1,7 @@
 import PubSub from "pubsub-js";
 
+import { createID, projectContainer } from "../index.js";
+
 // This module handles task creation
 
 
@@ -10,28 +12,6 @@ export let taskContainer = {};
 
 
 
-// Creates an ID based on time of creation
-
-// For testing purposes we add a unique number as all tasks are created at the same time
-// Create a unique ID
-const createUniqueId = (() => {
-    let uniqueID = 1;
-
-    function add() {
-        return uniqueID++;
-    }
-
-    return {
-        add
-    }
-})();
-
-function createID(taskName) {
-    const taskId = `L${taskName.length}ID${Date.now()}${createUniqueId.add()}`;
-    return taskId;
-}
-
-
 
 
 
@@ -40,13 +20,15 @@ function createID(taskName) {
 
 // Methods are in the prototype of the tasks
 const taskActions = {
-    logTask() {console.log(`
+    logTask() {
+        console.log(`
     Task: ${this.taskName}
     Project: ${this.taskProject}
     Due: ${this.taskDue}
     Details: ${this.taskDesc}
     Completed: ${this.taskDone}
-    `)},
+    `)
+    },
     setDone() {
         this.taskDone = true;
     },
@@ -122,7 +104,7 @@ const jsonSave = (msg, data) => {
 const jsonSaveCheckToken = PubSub.subscribe("checkboxChecked", jsonSave);
 const jsonSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jsonSave);
 
-export const jsonLoad = async() => {
+export const jsonLoad = () => {
     // jsonLoad will only load the JSON if there's information in the local storage & the taskContainer is empty.
     // This means this only runs on first operation
     if (localStorage.getItem("taskStored") && Object.keys(taskContainer).length === 0) {
@@ -134,9 +116,9 @@ export const jsonLoad = async() => {
             Object.assign(task, taskParsed[key]);
             taskContainer[key] = task;
         });
-    // When done with testing, this will just exit the function and will be deleted
+        // When done with testing, this will just exit the function and will be deleted
     } else { // THIS IS FOR TEST PURPOSES. LATER THIS WILL JUST STOP THE FUNCTION
-        const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", undefined, "Some sort of details", "today");
+        const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", "Personal", "Some sort of details", "today");
         const task2 = createTask("Example task 2", "Pool", undefined, "today");
         const task3 = createTask("Example task 3", "Hockey", undefined, "Tomorrow");
         const task4 = createTask("Example task 4", "Personal", undefined, "Tomorrow");

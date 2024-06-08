@@ -1,12 +1,14 @@
-import './base-styles.css';
-import './task-styles.css';
+import './styles/base-styles.css';
+import './styles/task-styles.css';
+import './styles/project-styles.css';
 
 import PubSub from 'pubsub-js';
 
 export { taskContainer, jsonLoad } from './modules/task';
-import { createTask, jsonLoad } from './modules/task';
+import { createTask, jsonLoad, taskContainer } from './modules/task';
 import { taskListFill } from './modules/task-display';
-import { createProject, projectContainer } from './modules/projects';
+export { projectContainer } from './modules/projects';
+import { createProject, projectContainer, updateProjectCount } from './modules/projects';
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
@@ -14,20 +16,20 @@ export const domSelector = (() => {
     const completedLine = document.querySelector("#completedLine");
     let taskList = document.querySelector("#taskList");
 
-    function resetTaskList(){
+    function resetTaskList() {
         domSelector.taskList.remove();
         domSelector.taskList = null;
     };
 
-    function updateTaskList(){
+    function updateTaskList() {
         domSelector.taskList = document.querySelector("#taskList");
     };
 
-    function resetCompletedLine(){
+    function resetCompletedLine() {
         domSelector.completedLine = null;
     }
 
-    function updateCompletedLine(){
+    function updateCompletedLine() {
         domSelector.completedLine = document.querySelector("#completedLine");
     }
 
@@ -39,7 +41,7 @@ export const domSelector = (() => {
         updateTaskList,
         resetCompletedLine,
         updateCompletedLine,
-  };
+    };
 })();
 
 
@@ -67,7 +69,16 @@ export function createID(name) {
 }
 
 
+
+
+// The personal project always exists
+createProject("Personal");
+createProject("Pool");
+createProject("Hockey");
+
+
+
+// TESTS
+
 // TEMP Testing task list create
 taskListFill(domSelector.main);
-
-createProject("Some project");

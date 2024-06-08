@@ -148,7 +148,7 @@ function filterTasks(printList, filters) {
 // Fill the taskList created in taskListCreate based on date and project filters
 export const taskListFill = function (domLocation, filterProject, filterDate) {
 
-    // localStorage doesn't need async operations, but just in case it's set up to wait. Later can pull it from a server instead.
+    // Loads tasks from json if there are any
     // FOR TESTING PURPOSES IT CURRENTLY RETURNS TASKS EVEN IF LOCAL STORAGE IS EMPTY
     jsonLoad();
 

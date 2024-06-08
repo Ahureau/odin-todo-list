@@ -1,6 +1,7 @@
 import PubSub from "pubsub-js";
 
-import { createID, taskContainer } from "../index.js";
+import { createID, domSelector, taskContainer } from "../index.js";
+import { projectListFill } from "./projects-display.js";
 
 export let projectContainer = {};
 
@@ -44,10 +45,3 @@ export const updateProjectCount = () => {
         projectContainer[project].taskCount = taskCount;
     }
 }
-
-// PubSub to update project count
-const triggerUpdateProjectCount = (msg, data) => {
-    updateProjectCount();
-};
-
-const triggerUpdateProjectCountToken = PubSub.subscribe("triggerTaskCount", triggerUpdateProjectCount);

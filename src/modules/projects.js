@@ -30,7 +30,7 @@ export const createProject = (projectName) => {
 }
 
 // Updates the number of tasks in each project IDEALLY USE PUBSUB TO RUN THIS WHEN A NEW TASK IS CREATED
-const updateProjectCount = () => {
+export const updateProjectCount = () => {
     for (const project in projectContainer) {
         let taskCount = 0;
         for (const task in taskContainer) {
@@ -46,8 +46,8 @@ const updateProjectCount = () => {
 }
 
 // PubSub to update project count
-const autoUpdateProjectCount = (msg, data) => {
+const triggerUpdateProjectCount = (msg, data) => {
     updateProjectCount();
 };
 
-const updateProjectCountTaskCreatedToken = PubSub.subscribe("taskCreated", autoUpdateProjectCount);
+const triggerUpdateProjectCountToken = PubSub.subscribe("triggerTaskCount", triggerUpdateProjectCount);

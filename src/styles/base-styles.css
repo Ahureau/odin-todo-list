@@ -169,6 +169,9 @@ h6 {
     --tertiary-for-tertiary: #686170;
 
     --primary-background: #BDC8D6;
+    --primary-background-opacity-light: rgba(189, 200, 214, 0.8);
+    --primary-background-opacity-lighter: rgba(189, 200, 214, 0.5);
+    --primary-background-opacity-lightest: rgba(189, 200, 214, 0.2);
     --secondary-background: #F7B197;
     --secondary-background-opacity-light: rgba(247, 177, 151, 0.8);
     --secondary-background-opacity-lighter: rgba(247, 177, 151, 0.5);
@@ -237,7 +240,7 @@ button {
     border-radius: 20px;
 }
 
-button:hover{
+button:hover {
     background-color: var(--secondary-background-opacity-light);
 }
 

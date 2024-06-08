@@ -7,14 +7,16 @@ import PubSub from 'pubsub-js';
 export { taskContainer, jsonLoad } from './modules/task';
 import { createTask, jsonLoad, taskContainer } from './modules/task';
 import { taskListFill } from './modules/task-display';
-export { projectContainer } from './modules/projects';
+export { projectContainer, updateProjectCount } from './modules/projects';
 import { createProject, projectContainer, updateProjectCount } from './modules/projects';
+import { projectListFill } from './modules/projects-display';
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
     const main = document.querySelector("main");
     const completedLine = document.querySelector("#completedLine");
     let taskList = document.querySelector("#taskList");
+    let projectList = document.querySelector("#projectList");
 
     function resetTaskList() {
         domSelector.taskList.remove();
@@ -24,6 +26,15 @@ export const domSelector = (() => {
     function updateTaskList() {
         domSelector.taskList = document.querySelector("#taskList");
     };
+
+    function resetProjectList() {
+        domSelector.projectList.remove();
+        domSelector.projectList = null;
+    }
+
+    function updateProjectList() {
+        domSelector.projectList = document.querySelector("#projectList");
+    }
 
     function resetCompletedLine() {
         domSelector.completedLine = null;
@@ -37,8 +48,14 @@ export const domSelector = (() => {
         main,
         completedLine,
         taskList,
+        projectList,
+
         resetTaskList,
         updateTaskList,
+
+        resetProjectList,
+        updateProjectList,
+
         resetCompletedLine,
         updateCompletedLine,
     };
@@ -82,3 +99,6 @@ createProject("Hockey");
 
 // TEMP Testing task list create
 taskListFill(domSelector.main);
+
+// This needs to go after for now because projects are not in memory
+projectListFill(domSelector.main);

@@ -1,4 +1,15 @@
 
+/* Task box */
+#taskBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.25rem;
+}
+
+
+
+
 /* Task container style */
 
 #taskList {

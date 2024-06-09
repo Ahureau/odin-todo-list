@@ -2,6 +2,10 @@ import PubSub from "pubsub-js";
 
 import { domSelector, taskContainer, jsonTaskLoad } from "../index.js";
 
+import speechLine from '../images/speechline.svg';
+import emptyListImg from '../images/dog1.jpg';
+import finishedListImg from '../images/penguin.jpg';
+
 // This module creates tasks in the UI
 
 
@@ -33,7 +37,7 @@ function setTaskList() {
 };
 
 // Removes the task list from the UI
-function removeTaskList() {
+export function removeTaskList() {
     if (domSelector.taskList) {
         // Removes the event listener set in setTaskList
         domSelector.taskList.removeEventListener("change", handleCheckboxChange);
@@ -152,9 +156,6 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
     // FOR TESTING PURPOSES IT CURRENTLY RETURNS TASKS EVEN IF LOCAL STORAGE IS EMPTY
     jsonTaskLoad();
 
-    // When promise is resolved we create the tasklist
-    taskListCreate(domLocation);
-
     // Defines a printList to iterate through
     let printList = Object.values(taskContainer);
 
@@ -167,38 +168,101 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
 
     filterTasks(printList, filters);
 
-    // Only create the completed line if there is a task in the taskContainer that's completed
-    for (const task of printList) {
-        if (task.taskDone === true) {
-            createCompletedLine(domSelector.taskList);
-            break;
+    if (printList.length === 0){
+        // If the printList would be empty, we have an empty state img
+        emptyTaskList(domLocation);
+
+    } else {
+
+        taskListCreate(domLocation);
+
+        // Only create the completed line if there is a task in the taskContainer that's completed
+        for (const task of printList) {
+            if (task.taskDone === true) {
+                createCompletedLine(domSelector.taskList);
+                break;
+            }
+        }
+
+        // Iterates over all the tasks that should be printed based on filters
+        for (const task of printList) {
+            // Create the task element
+            const taskElement = uiTaskBuilder(task);
+
+            // Decides where to place the task element
+            if (task.taskDone) {
+                // If the task is done the completedLine should be present, so we add it after that
+                domSelector.completedLine.after(taskElement);
+                // Task is checked in UI
+                const checkbox = taskElement.querySelector(`#${task.id}`);
+                checkbox.checked = true;
+            } else {
+                // Insert the task element before the completed line
+                domSelector.taskList.prepend(taskElement);
+                // Task is checked in UI
+                const checkbox = taskElement.querySelector(`#${task.id}`);
+                checkbox.checked = false;
+            }
         }
     }
-
-    // Iterates over all the tasks that should be printed based on filters
-    for (const task of printList) {
-        // Create the task element
-        const taskElement = uiTaskBuilder(task);
-
-        // Decides where to place the task element
-        if (task.taskDone) {
-            // If the task is done the completedLine should be present, so we add it after that
-            domSelector.completedLine.after(taskElement);
-            // Task is checked in UI
-            const checkbox = taskElement.querySelector(`#${task.id}`);
-            checkbox.checked = true;
-        } else {
-            // Insert the task element before the completed line
-            domSelector.taskList.prepend(taskElement);
-            // Task is checked in UI
-            const checkbox = taskElement.querySelector(`#${task.id}`);
-            checkbox.checked = false;
-        }
-    }
-
     PubSub.publish("taskListCreated", printList);
 }
 
+
+
+
+
+// This creates the images for various empty scenarios
+
+// Fully empty tasklist
+function emptyTaskList(domLocation){
+    const emptyImgBox = document.createElement("div");
+    emptyImgBox.style.display = "flex";
+    emptyImgBox.style.flexDirection = "column";
+    emptyImgBox.style.alignItems = "center";
+    emptyImgBox.style.gap = "0.75rem";
+    domLocation.appendChild(emptyImgBox);
+
+    const subtitle = document.createElement("h3");
+    subtitle.textContent = "Time to create a task?";
+    emptyImgBox.appendChild(subtitle);
+
+    const imgToText = document.createElement("img");
+    imgToText.src = speechLine;
+    imgToText.style.width = "50px";
+    imgToText.style.marginLeft = "50px";
+    emptyImgBox.appendChild(imgToText);
+
+    const img = document.createElement("img");
+    img.src = emptyListImg;
+    img.style.maxWidth = "300px";
+    emptyImgBox.appendChild(img);
+}
+
+// Finished tasklist
+function finishedTaskList(domLocation){
+    const emptyImgBox = document.createElement("div");
+    emptyImgBox.style.display = "flex";
+    emptyImgBox.style.flexDirection = "column";
+    emptyImgBox.style.alignItems = "center";
+    emptyImgBox.style.gap = "0.75rem";
+    domLocation.appendChild(emptyImgBox);
+
+    const subtitle = document.createElement("h3");
+    subtitle.textContent = "Time to create a task?";
+    emptyImgBox.appendChild(subtitle);
+
+    const imgToText = document.createElement("img");
+    imgToText.src = speechLine;
+    imgToText.style.width = "50px";
+    imgToText.style.marginLeft = "50px";
+    emptyImgBox.appendChild(imgToText);
+
+    const img = document.createElement("img");
+    img.src = finishedListImg;
+    img.style.maxWidth = "300px";
+    emptyImgBox.appendChild(img);
+}
 
 
 

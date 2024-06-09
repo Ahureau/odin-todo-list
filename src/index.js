@@ -6,21 +6,29 @@ import PubSub from 'pubsub-js';
 
 export { taskContainer, jsonTaskLoad } from './modules/task';
 import { createTask, jsonTaskLoad, taskContainer } from './modules/task';
-import { taskListFill } from './modules/task-display';
+export { taskListFill } from './modules/task-display';
 
 export { projectContainer, updateProjectCount } from './modules/projects';
 import { createProject, projectContainer, updateProjectCount } from './modules/projects';
-import { projectListFill } from './modules/projects-display';
+export { projectListFill } from './modules/projects-display';
 
-import { headerCreate } from './modules/header';
+export { headerCreate } from './modules/header';
+
+import { overviewPageCreate } from './modules/overview';
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
     const body = document.querySelector("body");
-    const main = document.querySelector("main");
+    let main = document.querySelector("main");
     const completedLine = document.querySelector("#completedLine");
     let taskList = document.querySelector("#taskList");
     let projectList = document.querySelector("#projectList");
+
+    function fullWipe() {
+        const main = document.createElement("main");
+        body.replaceChildren(main);
+        domSelector.main = document.querySelector("main");
+    }
 
     function resetTaskList() {
         domSelector.taskList.remove();
@@ -54,6 +62,8 @@ export const domSelector = (() => {
         completedLine,
         taskList,
         projectList,
+
+        fullWipe,
 
         resetTaskList,
         updateTaskList,
@@ -97,14 +107,16 @@ export function createID(name) {
 
 
 
-// TESTS
+// // TESTS
 
-// Test creating header with function
-headerCreate(domSelector.body, "Overview", "var(--secondary-background)")
+overviewPageCreate();
+
+// // Test creating header with function
+// headerCreate(domSelector.body, "Overview", "var(--secondary-background)")
 
 
-// This needs to go after for now because projects are not in memory
-projectListFill(domSelector.main);
+// // This needs to go after for now because projects are not in memory
+// projectListFill(domSelector.main);
 
-// TEMP Testing task list create
-taskListFill(domSelector.main);
+// // TEMP Testing task list create
+// taskListFill(domSelector.main);

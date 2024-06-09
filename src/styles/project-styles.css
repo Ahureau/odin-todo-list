@@ -1,3 +1,13 @@
+/* Project list container */
+#projectBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.25rem;
+}
+
+
+/* The grid for the projects */
 #projectList {
     padding: 0px;
     display: grid;
@@ -16,6 +26,7 @@
     max-width: 100%;
 }
 
+/* The projects are buttons */
 button.projectButton {
     display: flex;
     align-items: center;
@@ -42,6 +53,7 @@ button.projectButton:active {
     white-space: nowrap;
 }
 
+/* Small circle with number of open tasks in it */
 .projectCount {
     position: absolute;
     top: 0.3125rem;

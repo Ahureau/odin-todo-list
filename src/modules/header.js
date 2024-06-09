@@ -1,3 +1,7 @@
+
+
+// The only thing this module does is handle the header display
+
 export function headerCreate(whereAdd, titleText, backgroundColor){
     const header = document.createElement("header");
     header.setAttribute("background-color", backgroundColor);
@@ -7,10 +11,3 @@ export function headerCreate(whereAdd, titleText, backgroundColor){
     title.textContent = titleText;
     header.appendChild(title);
 }
-
-
-/* 
-    <header>
-        <h1>Overview</h1>
-    </header>
-*/

@@ -96,16 +96,16 @@ const taskListUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", taskLis
 
 
 // PubSub to save JSON on checkbox interaction
-const jsonSave = (msg, data) => {
+const jsonTaskSave = (msg, data) => {
     const taskJson = JSON.stringify(taskContainer);
     localStorage.setItem("taskStored", taskJson);
 };
 
-const jsonSaveCheckToken = PubSub.subscribe("checkboxChecked", jsonSave);
-const jsonSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jsonSave);
+const jsonTaskSaveCheckToken = PubSub.subscribe("checkboxChecked", jsonTaskSave);
+const jsonTaskSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jsonTaskSave);
 
-export const jsonLoad = () => {
-    // jsonLoad will only load the JSON if there's information in the local storage & the taskContainer is empty.
+export const jsonTaskLoad = () => {
+    // jsonTaskLoad will only load the JSON if there's information in the local storage & the taskContainer is empty.
     // This means this only runs on first operation
     if (localStorage.getItem("taskStored") && Object.keys(taskContainer).length === 0) {
         const taskJson = localStorage.getItem("taskStored");

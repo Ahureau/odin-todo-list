@@ -43,7 +43,7 @@ export function projectListFill(domLocation) {
 
     projectListCreate(domLocation);
 
-    updateProjectCount(); // Could this be linked less
+    updateProjectCount();
 
     for (const key in projectContainer) {
         const project = projectContainer[key];
@@ -121,3 +121,5 @@ const triggerUpdateProjectCount = (msg, data) => {
 
 const projectListUpdateCheckToken = PubSub.subscribe("checkboxChecked", triggerUpdateProjectCount);
 const projectListUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", triggerUpdateProjectCount);
+const projectListUpdateTaskCreatedToken = PubSub.subscribe("taskCreated", triggerUpdateProjectCount);
+const projectListUpdateTaskListCreatedToken = PubSub.subscribe("taskListCreated", triggerUpdateProjectCount);

@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 
-import { domSelector, taskContainer, jsonLoad } from "../index.js";
+import { domSelector, taskContainer, jsonTaskLoad } from "../index.js";
 
 // This module creates tasks in the UI
 
@@ -150,7 +150,7 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
 
     // Loads tasks from json if there are any
     // FOR TESTING PURPOSES IT CURRENTLY RETURNS TASKS EVEN IF LOCAL STORAGE IS EMPTY
-    jsonLoad();
+    jsonTaskLoad();
 
     // When promise is resolved we create the tasklist
     taskListCreate(domLocation);
@@ -195,6 +195,8 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
             checkbox.checked = false;
         }
     }
+
+    PubSub.publish("taskListCreated", printList);
 }
 
 

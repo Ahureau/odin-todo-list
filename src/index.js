@@ -4,8 +4,8 @@ import './styles/project-styles.css';
 
 import PubSub from 'pubsub-js';
 
-export { taskContainer, jsonLoad } from './modules/task';
-import { createTask, jsonLoad, taskContainer } from './modules/task';
+export { taskContainer, jsonTaskLoad } from './modules/task';
+import { createTask, jsonTaskLoad, taskContainer } from './modules/task';
 import { taskListFill } from './modules/task-display';
 export { projectContainer, updateProjectCount } from './modules/projects';
 import { createProject, projectContainer, updateProjectCount } from './modules/projects';
@@ -97,8 +97,9 @@ createProject("Hockey");
 
 // TESTS
 
-// TEMP Testing task list create
-taskListFill(domSelector.main);
 
 // This needs to go after for now because projects are not in memory
 projectListFill(domSelector.main);
+
+// TEMP Testing task list create
+taskListFill(domSelector.main);

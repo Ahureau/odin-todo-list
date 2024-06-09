@@ -7,12 +7,16 @@ import PubSub from 'pubsub-js';
 export { taskContainer, jsonTaskLoad } from './modules/task';
 import { createTask, jsonTaskLoad, taskContainer } from './modules/task';
 import { taskListFill } from './modules/task-display';
+
 export { projectContainer, updateProjectCount } from './modules/projects';
 import { createProject, projectContainer, updateProjectCount } from './modules/projects';
 import { projectListFill } from './modules/projects-display';
 
+import { headerCreate } from './modules/header';
+
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
+    const body = document.querySelector("body");
     const main = document.querySelector("main");
     const completedLine = document.querySelector("#completedLine");
     let taskList = document.querySelector("#taskList");
@@ -45,6 +49,7 @@ export const domSelector = (() => {
     }
 
     return {
+        body,
         main,
         completedLine,
         taskList,
@@ -93,6 +98,9 @@ export function createID(name) {
 
 
 // TESTS
+
+// Test creating header with function
+headerCreate(domSelector.body, "Overview", "var(--secondary-background)")
 
 
 // This needs to go after for now because projects are not in memory

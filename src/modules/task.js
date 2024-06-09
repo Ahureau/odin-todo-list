@@ -63,8 +63,6 @@ export function createTask(taskName, taskProject, taskDesc, taskDue) {
 // PubSub corner
 
 
-
-
 // PubSub to update the tasks to done or not done based on UI changes
 const taskListUpdate = (msg, data) => {
     switch (msg) {
@@ -93,6 +91,8 @@ const taskListUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", taskLis
 
 
 
+
+// Tasklist memory
 
 
 // PubSub to save JSON on checkbox interaction

@@ -1,6 +1,7 @@
 import PubSub from "pubsub-js";
 
 import { domSelector, projectContainer, updateProjectCount } from "../index.js";
+import { jsonProjectLoad } from "./projects.js";
 
 
 // This module adds the projects to the UI
@@ -40,6 +41,8 @@ function removeProjectList() {
 
 // Fill the project list with the projects
 export function projectListFill(domLocation) {
+
+    jsonProjectLoad();
 
     projectListCreate(domLocation);
 

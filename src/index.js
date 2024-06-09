@@ -88,10 +88,7 @@ export function createID(name) {
 
 
 
-// The personal project always exists
-createProject("Personal");
-createProject("Pool");
-createProject("Hockey");
+
 
 
 

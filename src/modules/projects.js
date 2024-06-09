@@ -55,8 +55,6 @@ export const updateProjectCount = () => {
 // PubSub corner
 
 
-
-
 // Project list memory
 
 // PubSub to save JSON on checkbox interaction
@@ -65,6 +63,7 @@ const jsonProjectSave = (msg, data) => {
     localStorage.setItem("projectStored", projectJson);
 };
 
+// FOR NOW THIS SAVES ON CHECKBOX CHANGE BUT SHOULD SAVE WHEN CREATING OR DELETING TASKS
 const jsonProjectSaveCheckToken = PubSub.subscribe("checkboxChecked", jsonProjectSave);
 const jsonProjectSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jsonProjectSave);
 
@@ -80,9 +79,10 @@ export const jsonProjectLoad = () => {
             Object.assign(project, projectParsed[key]);
             projectContainer[key] = project;
         });
-        console.log(projectContainer);
-        // When done with testing, this will just exit the function and will be deleted
+        // TESTING NOTE Personal will always be present, but pool and hockey will be removed.
     } else { 
-        console.log("burp");
+        createProject("Personal");
+        createProject("Pool");
+        createProject("Hockey");
     }
 }

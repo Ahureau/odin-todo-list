@@ -11,7 +11,7 @@ import { jsonProjectLoad } from "./projects.js";
 // Create the actual projectList in UI
 
 // Create projectList in UI and let domSelector select it
-function projectListCreate(domLocation) {
+export function projectListCreate(domLocation) {
 
     // If there's already a projectList delete it
     if (domSelector.projectList) {

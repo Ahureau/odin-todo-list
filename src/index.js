@@ -8,13 +8,24 @@ export { taskContainer, jsonTaskLoad } from './modules/task';
 import { createTask, jsonTaskLoad, taskContainer } from './modules/task';
 export { taskListFill } from './modules/task-display';
 
-export { projectContainer, updateProjectCount } from './modules/projects';
-import { createProject, projectContainer, updateProjectCount } from './modules/projects';
+export { projectContainer, updateProjectCount, jsonProjectLoad } from './modules/projects';
+import { createProject, projectContainer, updateProjectCount, jsonProjectLoad } from './modules/projects';
 export { projectListFill } from './modules/projects-display';
 
 export { headerCreate } from './modules/header';
 
 import { overviewPageCreate } from './modules/overview';
+import { projectPageCreate } from './modules/project-view';
+
+
+
+
+
+
+
+
+
+
 
 // Keeps track of various DOM elements.
 export const domSelector = (() => {
@@ -79,6 +90,9 @@ export const domSelector = (() => {
 
 
 
+
+
+
 // Creates an ID based on time of creation
 
 // For testing purposes we add a unique number as all tasks are created at the same time
@@ -106,8 +120,44 @@ export function createID(name) {
 
 
 
+// Back to overview button
+
+export function backOverviewButton(whereAdd){
+    const button = document.createElement("button");
+    button.classList.add("backButton");
+    whereAdd.appendChild(button);
+
+    const leftChevron = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    leftChevron.setAttribute("width", "24");
+    leftChevron.setAttribute("height", "24");
+    leftChevron.setAttribute("viewBox", "0 -960 960 960");
+    button.appendChild(leftChevron);
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z");
+    leftChevron.appendChild(path);
+
+    const copy = document.createElement("p");
+    copy.classList.add("subtext");
+    copy.textContent = "back to overview";
+    button.appendChild(copy);
+
+    // If the button gets pressed, load the overview page
+    button.addEventListener("click", overviewPageCreate);
+}
+
+
+
+
+
+
+
 
 // // TESTS
+
+// projectPageCreate("L8ID17180466278441");
+
+
 
 overviewPageCreate();
 

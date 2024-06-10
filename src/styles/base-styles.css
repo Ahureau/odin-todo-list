@@ -74,6 +74,8 @@ h6 {
 
 
 
+
+
 /* Fonts */
 
 @font-face {
@@ -161,6 +163,9 @@ h6 {
 
 
 
+
+/* Variables */
+
 :root {
     --primary-dark: #1E152A;
     --secondary-dark: #514C57;
@@ -182,6 +187,17 @@ h6 {
     --highlight: #EF6939;
     --error: #CC1313;
 }
+
+
+
+
+
+
+
+
+
+
+/* Text */
 
 body {
     font-family: Lato, Arial, Helvetica, sans-serif;
@@ -226,6 +242,16 @@ p.subtext {
     font-weight: 500;
 }
 
+
+
+
+
+
+
+
+
+/* Buttons */
+
 button {
     display: flex;
     justify-content: center;
@@ -261,6 +287,42 @@ button.secondary:active {
     background-color: var(--secondary-background-opacity-lighter);
 }
 
+.backButton {
+    background-color: transparent;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    padding-left: 0rem;
+    padding-right: 1rem;
+    color: var(--secondary-dark);
+}
+
+.backButton > svg {
+    fill: var(--secondary-dark);
+}
+
+.backButton:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.backButton:active {
+    background-color: var(--secondary-dark);
+    color: white;
+}
+
+.backButton:active > svg {
+    fill: white;
+}
+
+
+
+
+
+
+
+/* Basic page styles */
+
 header {
     display: flex;
     justify-content: center;
@@ -274,4 +336,8 @@ main {
     flex-direction: column;
     gap: 1rem;
     margin: 2rem 1rem;
+}
+
+main.smallMargin {
+    margin-top: 1.25rem
 }

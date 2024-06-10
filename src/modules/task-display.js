@@ -221,6 +221,7 @@ function emptyTaskList(domLocation){
     emptyImgBox.style.flexDirection = "column";
     emptyImgBox.style.alignItems = "center";
     emptyImgBox.style.gap = "0.75rem";
+    emptyImgBox.id = "emptyImgBox";
     domLocation.appendChild(emptyImgBox);
 
     const subtitle = document.createElement("h3");
@@ -246,10 +247,11 @@ function finishedTaskList(domLocation){
     emptyImgBox.style.flexDirection = "column";
     emptyImgBox.style.alignItems = "center";
     emptyImgBox.style.gap = "0.75rem";
-    domLocation.appendChild(emptyImgBox);
+    emptyImgBox.id = "emptyImgBox";
+    domLocation.prepend(emptyImgBox);
 
     const subtitle = document.createElement("h3");
-    subtitle.textContent = "Time to create a task?";
+    subtitle.textContent = "You're all done!";
     emptyImgBox.appendChild(subtitle);
 
     const imgToText = document.createElement("img");
@@ -338,3 +340,32 @@ function uiTaskBuilder(task) {
     // Return the created task element
     return taskItem;
 };
+
+
+
+
+
+
+// PubSub corner
+
+// Checks when something happens with the tasklist and determine if there are no incomplete tasks.
+// If incomplete task, add an empty state image
+
+const finishedTaskListUpdate = (msg, data) => {
+    if (domSelector.completedLine){
+        const emptyImgBox = domSelector.taskList.querySelector("#emptyImgBox");
+        const taskItems = Array.from(taskList.querySelectorAll("li.taskItem"));
+        const incompleteTasksBeforeLine = taskItems.filter(taskItem => taskItem === completedLine.previousElementSibling);
+        if (incompleteTasksBeforeLine.length === 0 && !emptyImgBox) {
+            finishedTaskList(domSelector.taskList);
+        } else {
+            if (emptyImgBox){
+                emptyImgBox.remove();
+            }
+        }
+    }
+}
+
+const finishedTaskListUpdateCheckToken = PubSub.subscribe("checkboxChecked", finishedTaskListUpdate);
+const finishedTaskListUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", finishedTaskListUpdate);
+const finishedTaskListUpdateTaskListCreatedToken = PubSub.subscribe("taskListCreated", finishedTaskListUpdate);

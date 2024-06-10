@@ -70,6 +70,7 @@ function handleCheckboxChange(event) {
 
 // Moves a task to be right after the completed line, hence marked as "complete"
 function moveCompletedTask(task) {
+    // We check if there's a completed line and otherwise create it
     if (domSelector.completedLine) {
         domSelector.completedLine.after(task);
     } else {
@@ -81,7 +82,13 @@ function moveCompletedTask(task) {
 
 // Moves a task to be right before the completed line, hence marked as "incomplete"
 function moveIncompleteTask(task) {
-    domSelector.completedLine.before(task);
+    // We check if there's a completed line and otherwise create it
+    if (domSelector.completedLine) {
+        domSelector.completedLine.before(task);
+    } else {
+        createCompletedLine(domSelector.taskList);
+        domSelector.completedLine.before(task);
+    }
     // When there are no completed tasks, the completedLine is removed
     if (domSelector.completedLine === domSelector.taskList.lastChild) {
         domSelector.completedLine.remove();
@@ -191,14 +198,13 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
 
             // Decides where to place the task element
             if (task.taskDone) {
-                // If the task is done the completedLine should be present, so we add it after that
-                domSelector.completedLine.after(taskElement);
+                moveCompletedTask(taskElement);
                 // Task is checked in UI
                 const checkbox = taskElement.querySelector(`#${task.id}`);
                 checkbox.checked = true;
             } else {
                 // Insert the task element before the completed line
-                domSelector.taskList.prepend(taskElement);
+                moveIncompleteTask(taskElement);
                 // Task is checked in UI
                 const checkbox = taskElement.querySelector(`#${task.id}`);
                 checkbox.checked = false;

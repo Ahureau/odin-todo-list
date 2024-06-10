@@ -5,7 +5,9 @@ import { domSelector, headerCreate, taskListFill, jsonProjectLoad, projectContai
 // Actual UI function
 export function projectPageCreate(msg, projectId) {
 
-    jsonProjectLoad();
+    // TEMP disabled as it causes issues. 
+    // Why is jsonProjectLoad not always seeing what's in local storage?
+    // jsonProjectLoad();
 
     domSelector.fullWipe();
 

@@ -120,7 +120,7 @@ export const jsonTaskLoad = () => {
     } else { // THIS IS FOR TEST PURPOSES. LATER THIS WILL JUST STOP THE FUNCTION
         const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", "Personal", "Some sort of details", "today");
         const task2 = createTask("Example task 2", "Pool", undefined, "today");
-        const task3 = createTask("Example task 3", "Hockey", undefined, "Tomorrow");
+        const task3 = createTask("Example task 3", "Personal", undefined, "Tomorrow");
         const task4 = createTask("Example task 4", "Personal", undefined, "Tomorrow");
 
         task4.setDone();

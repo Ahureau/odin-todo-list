@@ -250,28 +250,28 @@ function emptyTaskList(domLocation){
 
 // Finished tasklist
 function finishedTaskList(domLocation){
-    const emptyImgBox = document.createElement("div");
-    emptyImgBox.style.display = "flex";
-    emptyImgBox.style.flexDirection = "column";
-    emptyImgBox.style.alignItems = "center";
-    emptyImgBox.style.gap = "0.75rem";
-    emptyImgBox.id = "emptyImgBox";
-    domLocation.prepend(emptyImgBox);
+    const finishedImgBox = document.createElement("div");
+    finishedImgBox.style.display = "flex";
+    finishedImgBox.style.flexDirection = "column";
+    finishedImgBox.style.alignItems = "center";
+    finishedImgBox.style.gap = "0.75rem";
+    finishedImgBox.id = "finishedImgBox";
+    domLocation.prepend(finishedImgBox);
 
     const subtitle = document.createElement("h3");
     subtitle.textContent = "You're all done!";
-    emptyImgBox.appendChild(subtitle);
+    finishedImgBox.appendChild(subtitle);
 
     const imgToText = document.createElement("img");
     imgToText.src = speechLine;
     imgToText.style.width = "50px";
     imgToText.style.marginLeft = "50px";
-    emptyImgBox.appendChild(imgToText);
+    finishedImgBox.appendChild(imgToText);
 
     const img = document.createElement("img");
     img.src = finishedListImg;
     img.style.maxWidth = "300px";
-    emptyImgBox.appendChild(img);
+    finishedImgBox.appendChild(img);
 }
 
 
@@ -360,10 +360,10 @@ function uiTaskBuilder(task) {
 // If incomplete tasks only, add an empty state image
 
 // Finished img state removal
-function removeEmptyImgBox(){
-    const emptyImgBox = domSelector.main.querySelector("#emptyImgBox");
-    if (emptyImgBox) {
-        emptyImgBox.remove();
+function removeFinishedImgBox(){
+    const finishedImgBox = domSelector.main.querySelector("#finishedImgBox");
+    if (finishedImgBox) {
+        finishedImgBox.remove();
     }
 }
 
@@ -377,10 +377,12 @@ const finishedTaskListUpdate = (msg, data) => {
             // If no task before the completed line, and the line is there, we print the empty state image
             finishedTaskList(domSelector.taskList);
         } else {
-            removeEmptyImgBox();
+            // If there is something before the completed line, we make sure the empty image state is removed
+            removeFinishedImgBox();
         }
     } else if (!domSelector.completedLine) {
-        removeEmptyImgBox();
+        // If there is no completedLine, there should be no finished image state.
+        removeFinishedImgBox();
     }
 }
 

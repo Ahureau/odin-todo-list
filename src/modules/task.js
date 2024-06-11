@@ -107,7 +107,7 @@ const jsonTaskSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jso
 export const jsonTaskLoad = () => {
     // jsonTaskLoad will only load the JSON if there's information in the local storage & the taskContainer is empty.
     // This means this only runs on first operation
-    if (localStorage.getItem("taskStored") && Object.keys(taskContainer).length === 0) {
+    if (localStorage.getItem("taskStored")) {
         const taskJson = localStorage.getItem("taskStored");
         const taskParsed = JSON.parse(taskJson);
         taskContainer = {};
@@ -126,3 +126,5 @@ export const jsonTaskLoad = () => {
         task4.setDone();
     }
 }
+
+//  && Object.keys(taskContainer).length === 0

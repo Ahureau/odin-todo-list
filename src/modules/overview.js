@@ -52,7 +52,7 @@ function projectButton(event){
 
         for (const project in projectContainer){
             if (projectContainer[project].id === projectId) {
-                PubSub.publish("projectView", projectId);
+                PubSub.publish("projectView", projectContainer[project].id);
                 break;
             }
         }

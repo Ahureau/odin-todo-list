@@ -358,14 +358,14 @@ function uiTaskBuilder(task) {
 // If incomplete task, add an empty state image
 
 const finishedTaskListUpdate = (msg, data) => {
-    if (domSelector.completedLine){
+    if (domSelector.completedLine) {
         const emptyImgBox = domSelector.taskList.querySelector("#emptyImgBox");
-        const taskItems = Array.from(taskList.querySelectorAll("li.taskItem"));
-        const incompleteTasksBeforeLine = taskItems.filter(taskItem => taskItem === completedLine.previousElementSibling);
+        const taskItems = Array.from(domSelector.taskList.querySelectorAll("li.taskItem")); // Replaced taskList with domSelector.taskList
+        const incompleteTasksBeforeLine = taskItems.filter(taskItem => taskItem === domSelector.completedLine.previousElementSibling);
         if (incompleteTasksBeforeLine.length === 0 && !emptyImgBox) {
             finishedTaskList(domSelector.taskList);
         } else {
-            if (emptyImgBox){
+            if (emptyImgBox) {
                 emptyImgBox.remove();
             }
         }

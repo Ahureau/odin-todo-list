@@ -70,7 +70,7 @@ const jsonProjectSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", 
 export const jsonProjectLoad = () => {
     // jsonProjectLoad will only load the JSON if there's information in the local storage & the projectContainer is empty.
     // This means this only runs on first operation
-    if (localStorage.getItem("projectStored") && Object.keys(projectContainer).length === 0) {
+    if (localStorage.getItem("projectStored")) {
         const projectJson = localStorage.getItem("projectStored");
         const projectParsed = JSON.parse(projectJson);
         projectContainer = {};
@@ -86,3 +86,5 @@ export const jsonProjectLoad = () => {
         createProject("Hockey");
     }
 }
+
+//  && Object.keys(projectContainer).length === 0

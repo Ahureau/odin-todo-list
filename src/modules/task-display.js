@@ -70,6 +70,7 @@ function handleCheckboxChange(event) {
 
 // Moves a task to be right after the completed line, hence marked as "complete"
 function moveCompletedTask(task) {
+    domSelector.updateCompletedLine();
     // We check if there's a completed line and otherwise create it
     if (domSelector.completedLine) {
         domSelector.completedLine.after(task);
@@ -82,6 +83,7 @@ function moveCompletedTask(task) {
 
 // Moves a task to be right before the completed line, hence marked as "incomplete"
 function moveIncompleteTask(task) {
+    domSelector.updateCompletedLine();
     // We check if there's a completed line and otherwise create it
     if (domSelector.completedLine) {
         domSelector.completedLine.before(task);
@@ -203,7 +205,7 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
                 const checkbox = taskElement.querySelector(`#${task.id}`);
                 checkbox.checked = true;
             } else {
-                // Insert the task element before the completed line
+                // Insert the task element before the completed line (created in previous loop)
                 moveIncompleteTask(taskElement);
                 // Task is checked in UI
                 const checkbox = taskElement.querySelector(`#${task.id}`);
@@ -355,20 +357,30 @@ function uiTaskBuilder(task) {
 // PubSub corner
 
 // Checks when something happens with the tasklist and determine if there are no incomplete tasks.
-// If incomplete task, add an empty state image
+// If incomplete tasks only, add an empty state image
+
+// Finished img state removal
+function removeEmptyImgBox(){
+    const emptyImgBox = domSelector.main.querySelector("#emptyImgBox");
+    if (emptyImgBox) {
+        emptyImgBox.remove();
+    }
+}
 
 const finishedTaskListUpdate = (msg, data) => {
+    domSelector.updateCompletedLine();
     if (domSelector.completedLine) {
-        const emptyImgBox = domSelector.taskList.querySelector("#emptyImgBox");
-        const taskItems = Array.from(domSelector.taskList.querySelectorAll("li.taskItem")); // Replaced taskList with domSelector.taskList
-        const incompleteTasksBeforeLine = taskItems.filter(taskItem => taskItem === domSelector.completedLine.previousElementSibling);
-        if (incompleteTasksBeforeLine.length === 0 && !emptyImgBox) {
+        // We check if there's anything before the completed line
+        const taskItems = Array.from(domSelector.taskList.querySelectorAll("li.taskItem"));
+        const taskBeforeCompletedLine = taskItems.find(taskItem => taskItem === domSelector.completedLine.previousElementSibling);
+        if (!taskBeforeCompletedLine) {
+            // If no task before the completed line, and the line is there, we print the empty state image
             finishedTaskList(domSelector.taskList);
         } else {
-            if (emptyImgBox) {
-                emptyImgBox.remove();
-            }
+            removeEmptyImgBox();
         }
+    } else if (!domSelector.completedLine) {
+        removeEmptyImgBox();
     }
 }
 

@@ -2,6 +2,7 @@
 import './styles/base-styles.css';
 import './styles/task-styles.css';
 import './styles/project-styles.css';
+import './styles/edit-styles.css';
 // Pubsub
 import PubSub from 'pubsub-js';
 // Task functions
@@ -150,7 +151,8 @@ export function backOverviewButton(whereAdd){
 
 
 
-// Always the first page
-overviewPageCreate();
+// Always the first page (TEMP disabled for other page creation)
+// overviewPageCreate();
 
-// // TESTS
+// TESTS
+

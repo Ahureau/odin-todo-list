@@ -1,0 +1,27 @@
+.toggle-container {
+    display: flex;
+    width: 100%;
+    padding: 0.3125rem;
+    border-radius: 20px;
+    border: 2px solid var(--light-dark);
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 3.125rem;
+    cursor: pointer;
+    /* transition: background-color 0.3s ease; */
+}
+
+.toggle-input:checked+.toggle-label {
+    background-color: var(--tertiary-background);
+    color: var(--primary-dark);
+    border-radius: 14px;
+}

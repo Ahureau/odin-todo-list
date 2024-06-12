@@ -3,11 +3,10 @@ import { domSelector, headerCreate, taskListFill, jsonProjectLoad, projectContai
 // This module handles the creation of the single project page
 
 // Actual UI function
-export function projectPageCreate(msg, projectId) {
+function projectPageCreate(msg, projectId) {
 
-    // TEMP disabled as it causes issues. 
-    // Why is jsonProjectLoad not always seeing what's in local storage?
-    // jsonProjectLoad();
+    // Make sure we have the latest data
+    jsonProjectLoad();
 
     domSelector.fullWipe();
 

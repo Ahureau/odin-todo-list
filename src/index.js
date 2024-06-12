@@ -15,8 +15,8 @@ export { projectListFill } from './modules/projects-display';
 export { headerCreate } from './modules/header';
 
 import { overviewPageCreate } from './modules/overview';
-import { projectPageCreate } from './modules/project-view';
-import {  } from './modules/task-view';
+import './modules/project-view';
+import './modules/task-view';
 
 
 

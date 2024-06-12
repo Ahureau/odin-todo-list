@@ -1,19 +1,18 @@
+// Styles
 import './styles/base-styles.css';
 import './styles/task-styles.css';
 import './styles/project-styles.css';
-
+// Pubsub
 import PubSub from 'pubsub-js';
-
+// Task functions
 export { taskContainer, jsonTaskLoad } from './modules/task';
-import { createTask, jsonTaskLoad, taskContainer } from './modules/task';
 export { taskListFill } from './modules/task-display';
-
+// Projects functions
 export { projectContainer, updateProjectCount, jsonProjectLoad } from './modules/projects';
-import { createProject, projectContainer, updateProjectCount, jsonProjectLoad } from './modules/projects';
 export { projectListFill } from './modules/projects-display';
-
+// Header module
 export { headerCreate } from './modules/header';
-
+// Individual pages
 import { overviewPageCreate } from './modules/overview';
 import './modules/project-view';
 import './modules/task-view';
@@ -155,14 +154,3 @@ export function backOverviewButton(whereAdd){
 overviewPageCreate();
 
 // // TESTS
-
-
-// // Test creating header with function
-// headerCreate(domSelector.body, "Overview", "var(--secondary-background)")
-
-
-// // This needs to go after for now because projects are not in memory
-// projectListFill(domSelector.main);
-
-// // TEMP Testing task list create
-// taskListFill(domSelector.main);

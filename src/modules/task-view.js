@@ -44,7 +44,17 @@ function buildTaskUi(task){
     taskName.textContent = task.taskName;
     taskStatus.appendChild(taskName);
 
-    // const taskStatus = document.createElement;
+    const taskDue = document.createElement("div");
+    taskDue.classList.add("taskInfo");
+    taskStatus.appendChild(taskDue);
+    const taskDueTitle = document.createElement("h4");
+    taskDueTitle.classList.add("taskInfoTitle");
+    taskDueTitle.textContent = "Due date";
+    taskDue.appendChild(taskDueTitle);
+    const taskDueDetails = document.createElement("p");
+    taskDueDetails.classList.add("taskInfoDetails");
+    taskDueDetails.textContent = task.taskDue;
+    taskDue.appendChild(taskDueDetails);
 }
 
 

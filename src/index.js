@@ -16,6 +16,7 @@ export { headerCreate } from './modules/header';
 
 import { overviewPageCreate } from './modules/overview';
 import { projectPageCreate } from './modules/project-view';
+import {  } from './modules/task-view';
 
 
 
@@ -150,16 +151,11 @@ export function backOverviewButton(whereAdd){
 
 
 
-
-
+// Always the first page
+overviewPageCreate();
 
 // // TESTS
 
-// projectPageCreate("L8ID17180466278441");
-
-
-
-overviewPageCreate();
 
 // // Test creating header with function
 // headerCreate(domSelector.body, "Overview", "var(--secondary-background)")

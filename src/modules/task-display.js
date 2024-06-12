@@ -13,7 +13,7 @@ import finishedListImg from '../images/penguin.jpg';
 
 
 
-// Create the actual tasklist in UI
+// Create the actual tasklist in UI including event listeners
 
 // Create taskList in UI and let domSelector select it
 function taskListCreate(domLocation) {
@@ -33,21 +33,50 @@ function taskListCreate(domLocation) {
 function setTaskList() {
     domSelector.updateTaskList();
     // Event listener for task list checkboxes
-    domSelector.taskList.addEventListener("change", handleCheckboxChange);
+    domSelector.taskList.addEventListener("click", determineTasklistEventTarget);
 };
 
 // Removes the task list from the UI
-export function removeTaskList() {
+function removeTaskList() {
     if (domSelector.taskList) {
         // Removes the event listener set in setTaskList
-        domSelector.taskList.removeEventListener("change", handleCheckboxChange);
+        domSelector.taskList.removeEventListener("click", determineTasklistEventTarget);
         domSelector.resetTaskList();
     };
 }
 
+function determineTasklistEventTarget(event) {
+    const target = event.target;
+    if (event.target.type === "checkbox") {
+        handleCheckboxChange(event);
+    } else if (target.closest("a")) {
+        taskButton(event);
+    }
+}
 
+// Handles task button click event
+function taskButton(event) {
+    // We stop the link from just refreshing the page
+    event.preventDefault();
+    // Button that is clicked (ok, technically, it's a link, I get it)
+    const button = event.target.closest("a");
+    // If a button was pressed
+    if (button) {
+        // Select the list item in which it's contained
+        const li = button.closest("li");
+        // Grab the input which carries the ID for this task
+        const task = li.firstElementChild;
+        const taskId = task.id;
 
-
+        // Publish an event that carries the task ID with it
+        for (const task in taskContainer) {
+            if (taskContainer[task].id === taskId) {
+                PubSub.publish("taskView", taskId);
+                break;
+            }
+        }
+    }
+}
 
 // Checkbox functions
 
@@ -97,6 +126,9 @@ function moveIncompleteTask(task) {
         domSelector.resetCompletedLine();
     }
 }
+
+
+
 
 
 
@@ -177,7 +209,7 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
 
     filterTasks(printList, filters);
 
-    if (printList.length === 0){
+    if (printList.length === 0) {
         // If the printList would be empty, we have an empty state img
         emptyTaskList(domLocation);
 
@@ -223,7 +255,7 @@ export const taskListFill = function (domLocation, filterProject, filterDate) {
 // This creates the images for various empty scenarios
 
 // Fully empty tasklist
-function emptyTaskList(domLocation){
+function emptyTaskList(domLocation) {
     const emptyImgBox = document.createElement("div");
     emptyImgBox.style.display = "flex";
     emptyImgBox.style.flexDirection = "column";
@@ -249,7 +281,7 @@ function emptyTaskList(domLocation){
 }
 
 // Finished tasklist
-function finishedTaskList(domLocation){
+function finishedTaskList(domLocation) {
     const finishedImgBox = document.createElement("div");
     finishedImgBox.style.display = "flex";
     finishedImgBox.style.flexDirection = "column";
@@ -360,7 +392,7 @@ function uiTaskBuilder(task) {
 // If incomplete tasks only, add an empty state image
 
 // Finished img state removal
-function removeFinishedImgBox(){
+function removeFinishedImgBox() {
     const finishedImgBox = domSelector.main.querySelector("#finishedImgBox");
     if (finishedImgBox) {
         finishedImgBox.remove();

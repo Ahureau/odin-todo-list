@@ -17,6 +17,7 @@ export { headerCreate } from './modules/header';
 import { overviewPageCreate } from './modules/overview';
 import './modules/project-view';
 import './modules/task-view';
+import './modules/edit-view';
 
 
 

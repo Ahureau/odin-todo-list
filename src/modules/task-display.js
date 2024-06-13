@@ -3,7 +3,7 @@ import PubSub from "pubsub-js";
 import { domSelector, taskContainer, jsonTaskLoad } from "../index.js";
 
 import speechLine from '../images/speechline.svg';
-import emptyListImg from '../images/dog1.jpg';
+import emptyListImg from '../images/dog2.jpg';
 import finishedListImg from '../images/penguin.jpg';
 
 // This module creates tasks in the UI

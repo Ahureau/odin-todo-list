@@ -42,6 +42,7 @@
     flex-shrink: 0;
     border: 2px solid var(--secondary-dark);
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .taskCheck:checked {
@@ -79,6 +80,7 @@
     /* The overflowing text will be clipped and an ellipsis will be shown */
     text-overflow: ellipsis;
     overflow: clip;
+    cursor: pointer;
 }
 
 .taskCheck:checked+div>label {

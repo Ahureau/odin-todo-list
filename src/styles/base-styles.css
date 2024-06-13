@@ -264,6 +264,7 @@ button {
     box-shadow: none;
     border: none;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 button:hover {

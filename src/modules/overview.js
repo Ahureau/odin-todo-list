@@ -1,4 +1,4 @@
-import { domSelector, headerCreate, projectContainer, projectListFill, taskListFill } from "../index.js";
+import { domSelector, headerCreate, projectContainer, projectListFill, taskListFill, createFloatingButton } from "../index.js";
 
 // This module handles the creation of the overview page for the tasklist (the "main" page)
 
@@ -7,7 +7,13 @@ export function overviewPageCreate(){
 
     domSelector.fullWipe();
 
-    headerCreate(domSelector.body, "Overview", "--primary-background");
+    createFloatingButton();
+
+    // Grab the css variable we want for the header creation
+    let root = document.documentElement;
+    let primaryBackground = getComputedStyle(root).getPropertyValue('--primary-background');
+    // Create header
+    headerCreate(domSelector.body, "Overview", primaryBackground);
 
     // Set spacing between the projects and the tasks
     domSelector.main.style.gap = "3.125rem"

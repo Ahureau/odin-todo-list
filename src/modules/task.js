@@ -126,5 +126,3 @@ export const jsonTaskLoad = () => {
         task4.setDone();
     }
 }
-
-//  && Object.keys(taskContainer).length === 0

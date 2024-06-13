@@ -4,7 +4,8 @@
 
 export function headerCreate(whereAdd, titleText, backgroundColor){
     const header = document.createElement("header");
-    header.setAttribute("background-color", backgroundColor);
+    header.style.backgroundColor = backgroundColor;
+    // header.setAttribute("background-color", backgroundColor);
     whereAdd.prepend(header);
 
     const title = document.createElement("h1");

@@ -15,7 +15,7 @@ const projectActions = {
 }
 
 // Factory function for creating projects
-export const createProject = (projectName) => {
+export const createProject = (msg, projectName) => {
     let project = Object.create(projectActions);
 
     project.projectName = projectName;
@@ -63,9 +63,8 @@ const jsonProjectSave = (msg, data) => {
     localStorage.setItem("projectStored", projectJson);
 };
 
-// FOR NOW THIS SAVES ON CHECKBOX CHANGE BUT SHOULD SAVE WHEN CREATING OR DELETING TASKS
-const jsonProjectSaveCheckToken = PubSub.subscribe("checkboxChecked", jsonProjectSave);
-const jsonProjectSaveUpdateUncheckToken = PubSub.subscribe("checkboxUnchecked", jsonProjectSave);
+// Save on project creation
+const jsonProjectSaveCreationToken = PubSub.subscribe("projectCreated", jsonProjectSave);
 
 export const jsonProjectLoad = () => {
     // jsonProjectLoad will only load the JSON if there's information in the local storage & the projectContainer is empty.
@@ -81,10 +80,14 @@ export const jsonProjectLoad = () => {
         });
         // TESTING NOTE Personal will always be present, but pool and hockey will be removed.
     } else { 
-        createProject("Personal");
-        createProject("Pool");
-        createProject("Hockey");
+        createProject("", "Personal");
+        createProject("", "Pool");
+        createProject("", "Hockey");
     }
 }
 
-//  && Object.keys(projectContainer).length === 0
+
+
+
+// Call for project creation
+const createProjectToken = PubSub.subscribe("createProjectCall", createProject);

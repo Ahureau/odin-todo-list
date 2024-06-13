@@ -1,3 +1,5 @@
+
+
 // Styles
 import './styles/base-styles.css';
 import './styles/task-styles.css';
@@ -15,12 +17,16 @@ export { projectListFill } from './modules/projects-display';
 export { headerCreate } from './modules/header';
 // Individual pages
 import { overviewPageCreate } from './modules/overview';
+export { overviewPageCreate } from './modules/overview';
 import './modules/project-view';
 import './modules/task-view';
-import './modules/edit-view';
+import { editView } from './modules/edit-view';
 
 
 
+
+
+// Main module for the task list. It contains the initial state and components that are used everywhere
 
 
 
@@ -149,11 +155,37 @@ export function backOverviewButton(whereAdd){
 }
 
 
+// create floating button for task & project creation
+// Always created floating above the viewport using main as the baseline
+export function createFloatingButton(){
+    const button = document.createElement("button");
+    button.setAttribute("id", "createFloatingButton");
+    domSelector.main.appendChild(button);
+
+    const svgContainer = document.createElement("div");
+    svgContainer.classList.add("svgContainer");
+    button.appendChild(svgContainer);
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("height", "36px");
+    svg.setAttribute("width", "36px");
+    svg.setAttribute("viewBox", "0 -960 960 960");
+    svg.style.fill = "#ffffff";
+    svgContainer.appendChild(svg);
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
+    path.setAttribute("d", "M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z");
+    svg.appendChild(path);
+
+    button.addEventListener("click", editView)
+}
+
+
+
 
 
 
 // Always the first page (TEMP disabled for other page creation)
-// overviewPageCreate();
+overviewPageCreate();
 
 // TESTS
-

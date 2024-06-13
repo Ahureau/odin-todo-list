@@ -1,4 +1,7 @@
-.toggle-container {
+
+/* Toggle styles */
+
+#toggle-container {
     display: flex;
     width: 100%;
     padding: 0.3125rem;
@@ -17,6 +20,7 @@
     align-items: center;
     height: 3.125rem;
     cursor: pointer;
+    border-radius: 14px;
     /* transition: background-color 0.3s ease; */
 }
 
@@ -24,4 +28,45 @@
     background-color: var(--tertiary-background);
     color: var(--primary-dark);
     border-radius: 14px;
+    border: 1px solid var(--tertiary-dark);
+}
+
+
+
+
+
+
+
+/* Input styles */
+
+/* Main container */
+#creatorHolder,
+#inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.875rem;
+    height: 100%;
+    flex-grow: 1;
+}
+
+/* Text inputs styles */
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.3125rem;
+}
+
+.creatorLabel {
+    color: var(--secondary-dark);
+}
+
+.creatorInput {
+    appearance: none;
+    border: 1px solid var(--tertiary-dark);
+    border-radius: 10px;
+    height: 2.5rem;
+    color: var(--secondary-dark);
+    padding: 10px;
 }

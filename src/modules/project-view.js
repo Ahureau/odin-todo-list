@@ -1,4 +1,4 @@
-import { domSelector, headerCreate, taskListFill, jsonProjectLoad, projectContainer, backOverviewButton } from "../index.js";
+import { domSelector, headerCreate, taskListFill, jsonProjectLoad, createFloatingButton, projectContainer, backOverviewButton } from "../index.js";
 
 // This module handles the creation of the single project page
 
@@ -10,13 +10,20 @@ function projectPageCreate(msg, projectId) {
 
     domSelector.fullWipe();
 
+    createFloatingButton();
+
     const project = findProjectById(projectId);
 
     // Adds back to overview button and reduces top margin
     backOverviewButton(domSelector.main);
     domSelector.main.classList.add("smallMargin")
 
-    headerCreate(domSelector.body, project.projectName, "--primary-background");
+
+    // Grab the css variable we want for the header creation
+    let root = document.documentElement;
+    let primaryBackground = getComputedStyle(root).getPropertyValue('--primary-background');
+    // Create header
+    headerCreate(domSelector.body, project.projectName, primaryBackground);
 
     // Set spacing between the projects and the tasks
     domSelector.main.style.gap = "1.25rem"

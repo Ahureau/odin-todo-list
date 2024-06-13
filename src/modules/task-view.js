@@ -16,7 +16,12 @@ function taskPageCreate(msg, taskId){
     backOverviewButton(domSelector.main);
     domSelector.main.classList.add("smallMargin")
 
-    headerCreate(domSelector.body, "Task", "--primary-background");
+
+    // Grab the css variable we want for the header creation
+    let root = document.documentElement;
+    let primaryBackground = getComputedStyle(root).getPropertyValue('--primary-background');
+    // Create header
+    headerCreate(domSelector.body, "Task", primaryBackground);
 
     domSelector.main.style.gap = "1.25rem";
 

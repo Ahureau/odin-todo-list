@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 
-import { createID, domSelector, taskContainer } from "../index.js";
+import { createID, domSelector, taskContainer, overviewPageCreate } from "../index.js";
 import { projectListFill } from "./projects-display.js";
 
 export let projectContainer = {};
@@ -15,7 +15,7 @@ const projectActions = {
 }
 
 // Factory function for creating projects
-export const createProject = (msg, projectName) => {
+export const createProject = (projectName) => {
     let project = Object.create(projectActions);
 
     project.projectName = projectName;
@@ -80,14 +80,20 @@ export const jsonProjectLoad = () => {
         });
         // TESTING NOTE Personal will always be present, but pool and hockey will be removed.
     } else { 
-        createProject("", "Personal");
-        createProject("", "Pool");
-        createProject("", "Hockey");
+        createProject("Personal");
+        createProject("Pool");
+        createProject("Hockey");
     }
 }
 
 
 
 
-// Call for project creation
-const createProjectToken = PubSub.subscribe("createProjectCall", createProject);
+// Call for project creation from edit page
+const createProjectToken = PubSub.subscribe("createProjectCall", createProjectReturnOverview);
+// Create the project and return to the Overview page
+function createProjectReturnOverview(msg, projectName){
+    createProject(projectName);
+    jsonProjectSave();
+    overviewPageCreate();
+}

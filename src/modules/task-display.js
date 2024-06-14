@@ -349,14 +349,17 @@ function uiTaskBuilder(task) {
     projectSubtext.textContent = task.taskProject;
     projectTag.appendChild(projectSubtext);
 
-    const dateTag = document.createElement("div");
-    dateTag.classList.add("dateTag");
-    taskTags.appendChild(dateTag);
+    // We only create the date tag if there's a due date
+    if (task.taskDue){
+        const dateTag = document.createElement("div");
+        dateTag.classList.add("dateTag");
+        taskTags.appendChild(dateTag);
 
-    const dateSubtext = document.createElement("p");
-    dateSubtext.classList.add("subtext");
-    dateSubtext.textContent = task.taskDue;
-    dateTag.appendChild(dateSubtext);
+        const dateSubtext = document.createElement("p");
+        dateSubtext.classList.add("subtext");
+        dateSubtext.textContent = task.taskDue;
+        dateTag.appendChild(dateSubtext);
+    }
 
     // Chevron link to task details
     const taskDetailsLink = document.createElement("a");

@@ -1,6 +1,6 @@
 import PubSub from "pubsub-js";
 
-import { createID, projectContainer } from "../index.js";
+import { createID, projectContainer, overviewPageCreate } from "../index.js";
 
 // This module handles task creation
 
@@ -124,5 +124,36 @@ export const jsonTaskLoad = () => {
         const task4 = createTask("Example task 4", "Personal", undefined, "Tomorrow");
 
         task4.setDone();
+    }
+}
+
+
+
+
+
+
+// Call for task cration from edit page
+const createTaskToken = PubSub.subscribe("createTaskCall", createTaskReturnOverview);
+// Create the task and return to the overview page
+function createTaskReturnOverview(msg, taskCreationValues){
+    // taskCreationValues broken down for easier readability
+    const taskName = taskCreationValues[0];
+    const taskproject = findProjectnameById(taskCreationValues[1]);
+    const taskDue = taskCreationValues[3];
+    const taskDesc = taskCreationValues[2];
+    // Create a task
+    createTask(taskName, taskproject, taskDesc, taskDue);
+    // We need to save manually because otherwise it loads...
+    jsonTaskSave();
+    // ...the overview page before it has time to save.
+    overviewPageCreate();
+}
+
+// We get an ID for the project and find which one it is
+function findProjectnameById(projectId){
+    for (const project in projectContainer){
+        if (projectContainer[project].id === projectId){
+            return projectContainer[project].projectName;
+        }
     }
 }

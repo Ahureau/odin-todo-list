@@ -314,8 +314,12 @@ function taskCreationUi() {
     creatorSelector.creatorHolder.appendChild(button);
 
     button.addEventListener("click", () => {
-        const inputValue = nameInput.value;
-        PubSub.publish("createTaskCall", inputValue);
+        const nameInputValue = nameInput.value;
+        const projectInputValue = selectContainer.value;
+        const dueInputValue = dateInput.value;
+        const detailsInputValue = detailsInput.value;
+        const taskCreationValues = [nameInputValue, projectInputValue, dueInputValue, detailsInputValue];
+        PubSub.publish("createTaskCall", taskCreationValues);
     })
 }
 

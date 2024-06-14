@@ -198,6 +198,11 @@ function projectCreationUi() {
 }
 
 
+
+
+
+
+
 // Task creator subpage
 
 function taskCreationUi() {
@@ -284,6 +289,25 @@ function taskCreationUi() {
     dateInput.setAttribute("id", "taskDue");
     dateInputContainer.appendChild(dateInput);
 
+    // Task details
+    const detailsInputContainer = document.createElement("div");
+    detailsInputContainer.classList.add("inputContainer");
+    inputs.appendChild(detailsInputContainer);
+
+    const detailsLabel = document.createElement("label");
+    detailsLabel.setAttribute("for", "taskDetails");
+    detailsLabel.classList.add("creatorLabel");
+    detailsInputContainer.appendChild(detailsLabel);
+    const detailsLabelText = document.createElement("h4");
+    detailsLabelText.textContent = "Details";
+    detailsLabel.appendChild(detailsLabelText);
+
+    const detailsInput = document.createElement("textarea");
+    detailsInput.setAttribute("name", "taskDetails");
+    detailsInput.setAttribute("id", "taskDetails");
+    detailsInput.classList.add("creatorInput", "largeText");
+    detailsInputContainer.appendChild(detailsInput);
+
     // Button at the bottom
     const button = document.createElement("button");
     button.textContent = "Create task";
@@ -295,42 +319,7 @@ function taskCreationUi() {
     })
 }
 
-/*
-<div id="creatorHolder">
-    <div id="inputs">
-        <div class="inputContainer">
-            <label for="taskProject" class="creatorLabel">
-                <h4>Project</h4>
-            </label>
-            <select class="creatorInput" id="taskProject" name="taskProject">
-                <option value="Personal">Personal</option>
-                <option value="Pool">Pool</option>
-                <option value="Hockye">Hockey</option>
-            </select>
-            <div class="svgContainer dropdownChevron">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                    <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
-                </svg>
-            </div>
-        </div>
-        <div class="inputContainer">
-            <label for="taskDue" class="creatorLabel">
-                <h4>Due date</h4>
-            </label>
-            <input type="date" name="taskDue" id="taskDue" class="creatorInput">
-        </div>
-        <div class="inputContainer">
-            <label for="taskDetails" class="creatorLabel">
-                <h4>Details</h4>
-            </label>
-            <textarea type="date" name="taskDetails" id="taskDetails" class="creatorInput largeText"></textarea>
-        </div>
-    </div>
-    <button>Create project</button>
-</div>
-*/
-
-// Function for creation all the options based on projectContainer
+// Function for taskCreation, creates all the select options based on projectContainer
 function projectSelectListCreator(whereAdd) {
     for (const project in projectContainer) {
         const projectObject = projectContainer[project];
@@ -340,6 +329,16 @@ function projectSelectListCreator(whereAdd) {
         whereAdd.appendChild(projectOption);
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -359,6 +358,11 @@ const creatorSelector = (() => {
         creatorHolderReset,
     }
 })();
+
+
+
+
+
 
 
 

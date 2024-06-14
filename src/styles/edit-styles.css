@@ -50,6 +50,11 @@
     flex-grow: 1;
 }
 
+#inputs {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
 /* Text inputs styles */
 .inputContainer {
     display: flex;

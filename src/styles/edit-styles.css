@@ -56,6 +56,7 @@
     flex-direction: column;
     width: 100%;
     gap: 0.3125rem;
+    position: relative;
 }
 
 .creatorLabel {
@@ -68,5 +69,31 @@
     border-radius: 10px;
     height: 2.5rem;
     color: var(--secondary-dark);
-    padding: 10px;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.largeText {
+    height: 6rem;
+    resize: vertical;
+    overflow: auto;
+    border-bottom-right-radius: 0px;
+}
+
+select.creatorInput {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.dropdownChevron {
+    width: 24px;
+    height: 24px;
+    fill: var(--secondary-dark);
+    position: absolute;
+    right: 10px;
+    bottom: 7px;
+    pointer-events: none;
 }

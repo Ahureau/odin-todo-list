@@ -93,7 +93,10 @@ export const jsonProjectLoad = () => {
 const createProjectToken = PubSub.subscribe("createProjectCall", createProjectReturnOverview);
 // Create the project and return to the Overview page
 function createProjectReturnOverview(msg, projectName){
+    // Create a project
     createProject(projectName);
+    // We need to save manually because otherwise it loads...
     jsonProjectSave();
+    // ...the overview page before it has time to save.
     overviewPageCreate();
 }

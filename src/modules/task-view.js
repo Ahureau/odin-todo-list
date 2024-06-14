@@ -24,6 +24,7 @@ function taskPageCreate(msg, taskId){
     headerCreate(domSelector.body, "Task", primaryBackground);
 
     domSelector.main.style.gap = "1.25rem";
+    domSelector.main.style.paddingBottom = "0rem";
 
     buildTaskUi(task);
 }

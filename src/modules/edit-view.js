@@ -193,9 +193,23 @@ function projectCreationUi() {
 
     button.addEventListener("click", () => {
         const inputValue = nameInput.value;
+        checkExistingProjects(inputValue);
         PubSub.publish("createProjectCall", inputValue);
     })
 }
+
+// We check if a project already exists with this name
+function checkExistingProjects(newProjectName){
+    for (const project in projectContainer){
+        if (projectContainer[project].projectName === newProjectName){
+            console.log(`${project} === ${newProjectName}`);
+            break;
+        } else {
+            console.log(`${project} !== ${newProjectName}`);
+        }
+    }
+}
+
 
 
 

@@ -225,7 +225,7 @@ function projectCreationUi() {
 
     button.addEventListener("click", () => {
         // Check name against existing projects and decide what to do
-        projectNameCheck(nameInput);
+        projectSubmitCheck(nameInput);
     })
 }
 
@@ -241,15 +241,24 @@ function checkExistingProjects(newName) {
     return projectExists;
 }
 
-// Decide what to do if project exists
-function projectNameCheck(nameInput) {
+// Check if submission is valid
+function projectSubmitCheck(nameInput) {
     const newName = nameInput.value;
-    const projectExists = checkExistingProjects(newName);
-    if (!projectExists) {
-        PubSub.publish("createProjectCall", newName);
+    // Check if the field is empty
+    if (newName){
+        // Check if the project exists
+        const projectExists = checkExistingProjects(newName);
+        if (!projectExists) {
+            // If it exists, we call for project creation
+            PubSub.publish("createProjectCall", newName);
+        } else {
+            // If it doesn't exist, we show an error
+            const nameInputContainer = nameInput.parentElement;
+            showError(nameInputContainer, "This project already exists");
+        }
     } else {
         const nameInputContainer = nameInput.parentElement;
-        showError(nameInputContainer, "This project already exists");
+        showError(nameInputContainer, "Your project needs a name");
     }
 }
 

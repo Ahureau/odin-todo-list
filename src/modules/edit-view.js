@@ -100,7 +100,7 @@ function toggleSwitchCombinator(whereAdd, isChecked, id) {
 // Event listeners for keyboard interactions and clicks for toggle
 
 // Creates all event listeners
-function eventListenersCreate(){
+function eventListenersCreate() {
     // Labels for event listeners
     var toggleContainer = document.querySelector("#toggle-container");
 
@@ -188,21 +188,20 @@ function projectCreationUi() {
 
     // Button at the bottom
     const button = document.createElement("button");
-    button.textContent = "Create project";    
+    button.textContent = "Create project";
     creatorSelector.creatorHolder.appendChild(button);
 
     button.addEventListener("click", () => {
-        const inputValue = nameInput.value;
-        // Check against existing projects and decide what to do
-        handleProjectCheck(inputValue);
+        // Check name against existing projects and decide what to do
+        projectNameCheck(nameInput);
     })
 }
 
 // We check if a project already exists with this name
-function checkExistingProjects(newProjectName){
+function checkExistingProjects(newName) {
     let projectExists = false;
-    for (const project in projectContainer){
-        if (projectContainer[project].projectName === newProjectName){
+    for (const project in projectContainer) {
+        if (projectContainer[project].projectName === newName) {
             projectExists = true;
             break;
         }
@@ -211,16 +210,25 @@ function checkExistingProjects(newProjectName){
 }
 
 // Decide what to do if project exists
-function handleProjectCheck(newProjectName){
-    const projectExists = checkExistingProjects(newProjectName);
-    if (!projectExists){
-        PubSub.publish("createProjectCall", newProjectName);
+function projectNameCheck(nameInput) {
+    const newName = nameInput.value;
+    const projectExists = checkExistingProjects(newName);
+    if (!projectExists) {
+        PubSub.publish("createProjectCall", newName);
     } else {
         console.log("This project already exists");
     }
 }
 
+function showError(whereShow, errorMsg) {
+    const errorContainer = document.createElement("div");
+    errorContainer.classList.add("errorContainer");
+    whereShow.appendChild(errorContainer);
 
+    const errorText = document.createElement("p");
+    errorText.textContent = errorMsg;
+    errorContainer.appendChild(errorText);
+}
 
 
 
@@ -275,7 +283,7 @@ function taskCreationUi() {
     selectContainer.setAttribute("id", "taskProject");
     selectContainer.setAttribute("name", "taskProject");
     projectInputContainer.appendChild(selectContainer);
-    
+
     // Option creator
     projectSelectListCreator(selectContainer);
 
@@ -405,9 +413,9 @@ const creatorSelector = (() => {
 
 // subscription to creator input for task or project subpage
 const creationCallToken = PubSub.subscribe("creationCall", (msg, data) => {
-    if (data === "task"){
+    if (data === "task") {
         taskCreationUi();
-    } else if (data ==="project"){
+    } else if (data === "project") {
         projectCreationUi();
     }
 });

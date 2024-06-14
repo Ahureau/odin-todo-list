@@ -2,6 +2,9 @@ import PubSub from "pubsub-js";
 
 import { createID, projectContainer, overviewPageCreate } from "../index.js";
 
+// If we remove default dates, this can go
+import { lightFormat, startOfTomorrow } from "date-fns";
+
 // This module handles task creation
 
 
@@ -118,10 +121,10 @@ export const jsonTaskLoad = () => {
         });
         // When done with testing, this will just exit the function and will be deleted
     } else { // THIS IS FOR TEST PURPOSES. LATER THIS WILL JUST STOP THE FUNCTION
-        const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", "Personal", "Some sort of details", "today");
-        const task2 = createTask("Example task 2", "Pool", undefined, "today");
-        const task3 = createTask("Example task 3", "Personal", undefined, "Tomorrow");
-        const task4 = createTask("Example task 4", "Personal", undefined, "Tomorrow");
+        const task1 = createTask("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", "Personal", "Some sort of details", lightFormat(new Date(), 'yyyy-MM-dd'));
+        const task2 = createTask("Example task 2", "Pool", undefined, lightFormat(new Date(2025, 1, 11), 'yyyy-MM-dd'));
+        const task3 = createTask("Example task 3", "Personal", undefined, lightFormat(startOfTomorrow(), 'yyyy-MM-dd'));
+        const task4 = createTask("Example task 4", "Personal", undefined, lightFormat(new Date(2026, 1, 6), 'yyyy-MM-dd'));
 
         task4.setDone();
     }
@@ -139,8 +142,8 @@ function createTaskReturnOverview(msg, taskCreationValues){
     // taskCreationValues broken down for easier readability
     const taskName = taskCreationValues[0];
     const taskproject = findProjectnameById(taskCreationValues[1]);
-    const taskDue = taskCreationValues[3];
-    const taskDesc = taskCreationValues[2];
+    const taskDue = taskCreationValues[2];
+    const taskDesc = taskCreationValues[3];
     // Create a task
     createTask(taskName, taskproject, taskDesc, taskDue);
     // We need to save manually because otherwise it loads...

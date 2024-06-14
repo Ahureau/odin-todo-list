@@ -6,6 +6,8 @@ import speechLine from '../images/speechline.svg';
 import emptyListImg from '../images/dog2.jpg';
 import finishedListImg from '../images/penguin.jpg';
 
+import { isToday, isTomorrow } from "date-fns";
+
 // This module creates tasks in the UI
 
 
@@ -351,13 +353,14 @@ function uiTaskBuilder(task) {
 
     // We only create the date tag if there's a due date
     if (task.taskDue){
+        const formatedDueDate = dateFormat(task.taskDue);
         const dateTag = document.createElement("div");
         dateTag.classList.add("dateTag");
         taskTags.appendChild(dateTag);
 
         const dateSubtext = document.createElement("p");
         dateSubtext.classList.add("subtext");
-        dateSubtext.textContent = task.taskDue;
+        dateSubtext.textContent = formatedDueDate;
         dateTag.appendChild(dateSubtext);
     }
 
@@ -384,7 +387,16 @@ function uiTaskBuilder(task) {
     return taskItem;
 };
 
-
+// Checks the date and formats it
+function dateFormat(date){
+    if (isToday(date)){
+        return "Today";
+    } else if (isTomorrow(date)){
+        return "Tomorrow"
+    } else {
+        return(date);
+    }
+}
 
 
 

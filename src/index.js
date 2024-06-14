@@ -188,4 +188,7 @@ export function createFloatingButton(){
 // Always the first page (TEMP disabled for other page creation)
 overviewPageCreate();
 
+
 // TESTS
+// let currentDate = new Date();
+// console.log(currentDate)

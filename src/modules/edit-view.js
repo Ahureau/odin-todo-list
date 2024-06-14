@@ -143,6 +143,38 @@ function clickListener(container) {
 
 
 
+// Error handling
+
+function showError(whereShow, errorMsg) {
+    if (whereShow.querySelector(".errorContainer")) {
+        whereShow.querySelector(".errorContainer").remove();
+    }
+    const errorContainer = document.createElement("div");
+    errorContainer.classList.add("errorContainer");
+    whereShow.appendChild(errorContainer);
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("height", "24px");
+    svg.setAttribute("weidth", "24px");
+    svg.setAttribute("viewBox", "0 -960 960 960");
+    errorContainer.appendChild(svg);
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z");
+    svg.appendChild(path);
+
+    const errorText = document.createElement("p");
+    errorText.classList.add("subtext");
+    errorText.textContent = errorMsg;
+    errorContainer.appendChild(errorText);
+}
+
+
+
+
+
+
+
 
 
 
@@ -216,19 +248,11 @@ function projectNameCheck(nameInput) {
     if (!projectExists) {
         PubSub.publish("createProjectCall", newName);
     } else {
-        console.log("This project already exists");
+        const nameInputContainer = nameInput.parentElement;
+        showError(nameInputContainer, "This project already exists");
     }
 }
 
-function showError(whereShow, errorMsg) {
-    const errorContainer = document.createElement("div");
-    errorContainer.classList.add("errorContainer");
-    whereShow.appendChild(errorContainer);
-
-    const errorText = document.createElement("p");
-    errorText.textContent = errorMsg;
-    errorContainer.appendChild(errorText);
-}
 
 
 

@@ -81,17 +81,34 @@ function buildTaskUi(task){
     // If there is a description, print it
     if (task.taskDesc) {
         const taskDesc = document.createElement("div");
-        taskDesc.classList.add("taskInfo");
+        taskDesc.classList.add("taskInfo", "long");
         taskStatus.appendChild(taskDesc);
         const taskDescTitle = document.createElement("h4");
         taskDescTitle.classList.add("taskInfoTitle");
         taskDescTitle.textContent = "Details:";
         taskDesc.appendChild(taskDescTitle);
         const taskDescDetails = document.createElement("p");
-        taskDescDetails.classList.add("taskInfoDetails");
+        taskDescDetails.classList.add("taskInfoDetails", "long");
         taskDescDetails.textContent = task.taskDesc;
         taskDesc.appendChild(taskDescDetails);
     }
+
+    // If we want to add this functionality later...
+    // // Buttons container
+    // const buttonsContainer = document.createElement("div");
+    // buttonsContainer.classList.add("buttonsContainer");
+    // domSelector.main.appendChild(buttonsContainer);
+
+    // // Edit button
+    // const editButton = document.createElement("button");
+    // editButton.textContent = "Edit task";
+    // buttonsContainer.appendChild(editButton);
+
+    // // Delete button
+    // const deleteButton = document.createElement("button");
+    // deleteButton.classList.add("secondary");
+    // deleteButton.textContent = "Delete task";
+    // buttonsContainer.appendChild(deleteButton);
 }
 
 

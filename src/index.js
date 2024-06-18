@@ -182,6 +182,10 @@ export function createFloatingButton(){
 
 
 
+function overlayConfirmation(whatContains){
+    const background = document.createElement("div");
+    background.style.backgroundColor = "rgba(30, 21, 42, 0.5)";
+}
 
 
 
@@ -190,5 +194,3 @@ overviewPageCreate();
 
 
 // TESTS
-// let currentDate = new Date();
-// console.log(currentDate)

@@ -327,6 +327,12 @@ button.secondary:active {
     box-shadow: 2px 2px 4px var(--secondary-background-opacity-light);
 }
 
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
 
 
 

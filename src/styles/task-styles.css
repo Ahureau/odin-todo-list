@@ -168,11 +168,18 @@
 .taskStatus {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     width: 100%;
     gap: 1.25rem;
+    margin-bottom: 2rem;
 }
 
 .taskInfo {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
+}
+
+.taskInfoDetails {
+    max-width: 100%;
 }

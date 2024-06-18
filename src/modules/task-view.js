@@ -51,17 +51,19 @@ function buildTaskUi(task){
     taskStatus.appendChild(taskName);
 
     // Due date line
-    const taskDue = document.createElement("div");
-    taskDue.classList.add("taskInfo");
-    taskStatus.appendChild(taskDue);
-    const taskDueTitle = document.createElement("h4");
-    taskDueTitle.classList.add("taskInfoTitle");
-    taskDueTitle.textContent = "Due date:";
-    taskDue.appendChild(taskDueTitle);
-    const taskDueDetails = document.createElement("p");
-    taskDueDetails.classList.add("taskInfoDetails");
-    taskDueDetails.textContent = task.taskDue;
-    taskDue.appendChild(taskDueDetails);
+    if (task.taskDue){
+        const taskDue = document.createElement("div");
+        taskDue.classList.add("taskInfo");
+        taskStatus.appendChild(taskDue);
+        const taskDueTitle = document.createElement("h4");
+        taskDueTitle.classList.add("taskInfoTitle");
+        taskDueTitle.textContent = "Due date:";
+        taskDue.appendChild(taskDueTitle);
+        const taskDueDetails = document.createElement("p");
+        taskDueDetails.classList.add("taskInfoDetails");
+        taskDueDetails.textContent = task.taskDue;
+        taskDue.appendChild(taskDueDetails);
+    }
 
     // Task status
     const taskDone = document.createElement("div");

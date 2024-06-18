@@ -241,7 +241,7 @@ function checkExistingProjects(newName) {
     return projectExists;
 }
 
-// Check if submission is valid
+// Check if project submission is valid
 function projectSubmitCheck(nameInput) {
     const newName = nameInput.value;
     // Check if the field is empty
@@ -384,7 +384,7 @@ function taskCreationUi() {
         const dueInputValue = dateInput.value;
         const detailsInputValue = detailsInput.value;
         const taskCreationValues = [nameInputValue, projectInputValue, dueInputValue, detailsInputValue];
-        PubSub.publish("createTaskCall", taskCreationValues);
+        taskSubmitCheck(nameInput, taskCreationValues);
     })
 }
 
@@ -398,6 +398,20 @@ function projectSelectListCreator(whereAdd) {
         whereAdd.appendChild(projectOption);
     }
 }
+
+// Check if task submission is valid
+function taskSubmitCheck(nameInput, taskCreationValues) {
+    const newName = nameInput.value;
+    // Check if the field is empty
+    if (newName) {
+        PubSub.publish("createTaskCall", taskCreationValues);
+    } else {
+        const nameInputContainer = nameInput.parentElement;
+        showError(nameInputContainer, "Your task needs a name");
+    }
+}
+
+
 
 
 
